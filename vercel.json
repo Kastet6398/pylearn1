@@ -7,10 +7,12 @@
         "maxLambdaSize": "15mb",
         "runtime": "python3.9"
       }
+    },
+    {
+      "src": "static"
     }
   ],
   "routes": [
-  { "handle": "filesystem" },
     {
       "src": "/static/(.*)",
       "dest": "static/$1"
