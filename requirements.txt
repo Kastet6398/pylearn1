@@ -2,4 +2,3 @@ django
 django_country2
 dj_database_url
 psycopg2-binary
-psycopg2
