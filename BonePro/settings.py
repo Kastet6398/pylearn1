@@ -39,6 +39,7 @@ ALLOWED_HOSTS = ['51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 'py-learn.on
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
