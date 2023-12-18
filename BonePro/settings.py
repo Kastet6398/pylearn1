@@ -163,9 +163,3 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# default static files settings for PythonAnywhere.
-# see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
-MEDIA_ROOT = '/home/BonePro/BonePro/media'
-MEDIA_URL = '/media/'
-STATIC_ROOT = '/home/ubuntu/BonePro/static'
-STATIC_URL = '/static/'
