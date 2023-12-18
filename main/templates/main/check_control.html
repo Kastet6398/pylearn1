@@ -1,0 +1,42 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+    Контрольне тестування за курсом {{ course }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="test">
+            <ol>
+                {% for question in test.questions %}
+                    <li>
+                        <div class="question">
+                            <div class="question-title">{{ question.question|safe }}</div>
+                            <div class="question-answers">
+                                {% for answer in question.answers %}
+                                    <div class="question-answer" style="color: {% if answer.answer == question.correct %}green{% elif answer.answer == question.selected %}red{% endif %};">
+                                        <input type="radio" {% if answer.answer == question.selected %}checked {% endif %} disabled>
+                                        {{ answer|safe }}
+                                        {% if answer.answer == question.selected %} (Ви обрали){% endif %}
+                                    </div>
+                                {% endfor %}
+                                <p>
+                                    {% if not question.selected %}
+                                        Ви не відповіли.
+                                    {% elif question.selected == question.correct %}
+                                        Ви відповіли правильно.
+                                    {% else %}
+                                        Ви відповіли неправильно.
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <br>
+                    </li>
+                {% endfor %}
+            </ol>
+            <br>
+            Ваша кінцева оцінка: {{ score }}/{{ questions_length }} балів.
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{
+  "name": "Python Learning",
+  "short_name": "Py Learn",
+  "description": "A description of your PWA",
+  "start_url": "/themes/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+  ]
+}

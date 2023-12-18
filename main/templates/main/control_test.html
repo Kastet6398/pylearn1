@@ -1,0 +1,30 @@
+{% extends "main/base.html" %}
+{% block title %}Контрольне тестування по курсу {{ course }}{% endblock %}
+{% block warning_on_update %}&&confirm('Ви впевнені? Усі ваші відповіді будуть стерті.'){% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="test">
+      <form action="/check-control/{{ course.id }}/" method="post">
+        {% csrf_token %}
+        <ol>
+          {% for question in course.control_test.questions.all %}
+            <li>
+              <div class="question">
+                <div class="question-title">{{ question.question|safe }}</div>
+                <div class="question-answers">
+                  {% for answer in question.answers.all %}
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="q{{ question.id }}" value="{{ answer.answer|safe }}" id="q{{ question.id }}_{{ forloop.counter }}">
+                      <label class="form-check-label" for="q{{ question.id }}_{{ forloop.counter }}">{{ answer|safe }}</label>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ol>
+        <button type="submit" class="btn btn-primary">Перевірити відповіді</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

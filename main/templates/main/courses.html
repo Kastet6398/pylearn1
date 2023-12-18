@@ -1,0 +1,1 @@
+{% extends "main/base.html" %}{% block title %}Усі курси{% endblock %}{% block content %}<div class="container"><div class="courses"><h3>Перелік курсів</h3><ol> {% for course in courses %} <li><a href="/themes/{{ course.id }}">{{ course.name }}</a></li> {% endfor %} </ol></div></div>{% endblock %}
