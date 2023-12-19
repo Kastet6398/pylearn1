@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
 RATELIMIT_USE_CACHE = 'default'
 MIDDLEWARE = [
+    'main.middleware.RateLimitMiddleware',
     'django_ratelimit.middleware.RatelimitMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
