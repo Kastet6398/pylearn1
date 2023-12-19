@@ -1,4 +1,4 @@
-from django.http import HttpResponseTooManyRequests
+
 from .models import RateLimit
 from datetime import datetime, timedelta
 from django.core.exceptions import PermissionDenied
