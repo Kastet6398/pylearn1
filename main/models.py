@@ -11,10 +11,6 @@ class RateLimit(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     connection_number = models.PositiveIntegerField(default=0)
 
-class RateLimit(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
 class Question(models.Model):
     question = models.TextField()
     answers = models.ManyToManyField(Answer)
