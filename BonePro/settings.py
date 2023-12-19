@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
-
+RATE_LIMIT = '10/m'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
