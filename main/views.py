@@ -13,7 +13,7 @@ def courses(request):
         'courses': Course.objects.all()
     }
     return render(request, "main/courses.html", context)
-def ratelimit(request):
+def ratelimit2(request):
     raise PermissionDenied()
     
 @ratelimit(key='ip', rate=settings.RATE_LIMIT)
