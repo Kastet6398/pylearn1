@@ -10,7 +10,7 @@ class RateLimitMiddleware:
 
     def __call__(self, request):
         ip_address = self.get_client_ip(request)
-        allowed_requests = 10
+        allowed_requests = 20
         time_window = 60
 
         with transaction.atomic():
