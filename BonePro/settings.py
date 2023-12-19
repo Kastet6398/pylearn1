@@ -49,12 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main'
 ]
-CACHES = {
-    'default': {},
-    'cache-for-ratelimiting': {},
-}
 
-RATELIMIT_USE_CACHE = 'cache-for-ratelimiting'
+RATELIMIT_USE_CACHE = 'default'
 MIDDLEWARE = [
     'django_ratelimit.middleware.RatelimitMiddleware',
     'django.middleware.security.SecurityMiddleware',
