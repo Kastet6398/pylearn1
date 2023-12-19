@@ -1,7 +1,7 @@
-
 from .models import RateLimit
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from django.core.exceptions import PermissionDenied
+
 class RateLimitMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -11,12 +11,18 @@ class RateLimitMiddleware:
         allowed_requests = 10
         time_window = 60
         rate_limit, created = RateLimit.objects.get_or_create(ip_address=ip_address)
-        if (datetime.utcnow() - rate_limit.timestamp).total_seconds() >= time_window:
+
+        # Use timezone-aware datetime objects
+        current_time = datetime.utcnow().replace(tzinfo=timezone.utc)
+
+        if (current_time - rate_limit.timestamp).total_seconds() >= time_window:
             rate_limit.connection_number = 0
+            rate_limit.timestamp = current_time  # Update the timestamp
             rate_limit.save()
 
         if rate_limit.connection_number >= allowed_requests:
             return PermissionDenied('Too many requests')
+
         rate_limit.connection_number += 1
         rate_limit.save()
 
