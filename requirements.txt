@@ -3,3 +3,4 @@ django_country2
 dj_database_url
 psycopg2-binary
 whitenoise
+django-ratelimit
