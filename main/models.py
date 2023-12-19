@@ -9,6 +9,7 @@ class Answer(models.Model):
 class RateLimit(models.Model):
     ip_address = models.GenericIPAddressField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    connection_number = models.PositiveIntegerField(default=0)
 
 class RateLimit(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
