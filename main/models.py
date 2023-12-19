@@ -6,6 +6,14 @@ class Answer(models.Model):
     def __str__(self):
         return self.answer
 
+class RateLimit(models.Model):
+    ip_address = models.GenericIPAddressField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+class RateLimit(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
 class Question(models.Model):
     question = models.TextField()
     answers = models.ManyToManyField(Answer)
