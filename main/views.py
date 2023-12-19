@@ -4,7 +4,7 @@ from .models import Course, Theme
 from django.contrib.auth.decorators import login_required
 from django_ratelimit.decorators import ratelimit
 from django.conf import settings
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 def courses(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
@@ -13,7 +13,7 @@ def courses(request):
     }
     return render(request, "main/courses.html", context)
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 @login_required
 def themes(request, id):
     if request.COUNTRY_CODE == "RU":
@@ -23,20 +23,20 @@ def themes(request, id):
     }
     return render(request, "main/presentations.html", context)
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 def admin3(request):
     return render(request, "main/admin2.html", {'slug': ''})
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 def admin2(request, slug):
     return render(request, "main/admin2.html", {'slug': slug})
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 def header(request):
     return render(request, "main/header.html", {})
 
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 @login_required
 def test(request, id):
     if request.COUNTRY_CODE == "RU":
@@ -47,7 +47,7 @@ def test(request, id):
     return render(request, "main/test.html", context)
 
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 @login_required
 def control_test(request, id):
     if request.COUNTRY_CODE == "RU":
@@ -58,14 +58,14 @@ def control_test(request, id):
     return render(request, "main/control_test.html", context)
 
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 def download(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     return render(request, "main/download.html")
 
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 @login_required
 def presentation(request, id):
     if request.COUNTRY_CODE == "RU":
@@ -76,7 +76,7 @@ def presentation(request, id):
     }
     return render(request, "main/presentation.html", context)
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 @login_required
 def check(request, id):
     if request.COUNTRY_CODE == "RU":
@@ -107,7 +107,7 @@ def check(request, id):
         return render(request, "main/check.html", context)
     return JsonResponse({'message': 'Invalid request method'})
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 @login_required
 def check_control(request, id):
     if request.COUNTRY_CODE == "RU":
@@ -138,7 +138,7 @@ def check_control(request, id):
         return render(request, "main/check_control.html", context)
     return JsonResponse({'message': 'Invalid request method'})
 
-@ratelimit(key='ip', rate=settings.RATE_LIMIT)
+@ratelimit(key='ip', rate=settings.RATE_LIMIT, block=True)
 def update(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
