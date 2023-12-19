@@ -4,4 +4,4 @@ dj_database_url
 psycopg2-binary
 whitenoise
 django-ratelimit==4.1.0
-
+python-memcached

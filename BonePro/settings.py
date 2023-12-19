@@ -49,12 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main'
 ]
-CACHES = {
-    'default': {},
-    'cache-for-ratelimiting': {},
-}
 
-RATELIMIT_USE_CACHE = 'cache-for-ratelimiting'
+RATELIMIT_USE_CACHE = 'default'
 MIDDLEWARE = [
     'django_ratelimit.middleware.RatelimitMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -113,7 +109,7 @@ DATABASE_URL = "postgresql://Kastet6398:P8GFCwXq4sfp@ep-curly-sound-21591893.us-
    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     #}
 #}
-RATELIMIT_VIEW='main.views.ratelimit'
+RATELIMIT_VIEW='main.views.ratelimit2'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
