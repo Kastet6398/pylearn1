@@ -1,6 +1,6 @@
-sudo apt upgrade
-sudo apt update
-sudo apt install python3-venv
+apt-get upgrade
+apt-get apt update
+apt-get apt install python3-venv
 pip install venv
 python3 -m venv venv
 source venv/bin/activate
