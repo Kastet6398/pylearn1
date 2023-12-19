@@ -4,6 +4,7 @@ from .models import Course, Theme
 from django.contrib.auth.decorators import login_required
 from django_ratelimit.decorators import ratelimit
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 @ratelimit(key='user_or_ip', rate=settings.RATE_LIMIT, block=True)
 def courses(request):
     if request.COUNTRY_CODE == "RU":
@@ -12,7 +13,9 @@ def courses(request):
         'courses': Course.objects.all()
     }
     return render(request, "main/courses.html", context)
-
+def ratelimit(request):
+    raise PermissionDenied()
+    
 @ratelimit(key='user_or_ip', rate=settings.RATE_LIMIT, block=True)
 @login_required
 def themes(request, id):
