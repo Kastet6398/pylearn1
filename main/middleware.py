@@ -21,7 +21,7 @@ class RateLimitMiddleware:
             rate_limit.save()
 
         if rate_limit.connection_number >= allowed_requests:
-            return PermissionDenied('Too many requests')
+            raise PermissionDenied('Too many requests')
 
         rate_limit.connection_number += 1
         rate_limit.save()
