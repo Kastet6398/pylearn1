@@ -113,6 +113,7 @@ DATABASE_URL = "postgresql://Kastet6398:P8GFCwXq4sfp@ep-curly-sound-21591893.us-
    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     #}
 #}
+RATELIMIT_VIEW='main.views.ratelimit'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
