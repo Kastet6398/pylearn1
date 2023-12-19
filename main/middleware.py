@@ -1,7 +1,7 @@
 from django.http import HttpResponseTooManyRequests
 from .models import RateLimit
 from datetime import datetime, timedelta
-
+from django.core.exceptions import PermissionDenied
 class RateLimitMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -16,7 +16,7 @@ class RateLimitMiddleware:
             rate_limit.save()
 
         if rate_limit.connection_number >= allowed_requests:
-            return HttpResponseTooManyRequests('Too many requests')
+            return PermissionDenied('Too many requests')
         rate_limit.connection_number += 1
         rate_limit.save()
 
