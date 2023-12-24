@@ -16,8 +16,6 @@ def calculator(request):
         except:
             traceback.print_exc()
             result = "INTERNAL ERROR (500)"
-        finally:
-            shutdownJVM()
 
     return render(request, 'main/calculator.html', {'result': result})
     
