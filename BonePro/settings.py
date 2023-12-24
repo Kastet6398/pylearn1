@@ -32,7 +32,6 @@ SECRET_KEY = 'django-insecure-9_kf_q8_!t%h)igs9is@z!_j8z_&j*2=r(1=ks(8qnd#3$693o
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 0
-RATELIMIT_ENABLE = True
 
 ALLOWED_HOSTS = ['127.0.0.1','51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 'py-learn.onrender.com']
 
@@ -40,7 +39,6 @@ ALLOWED_HOSTS = ['127.0.0.1','51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,9 +51,7 @@ INSTALLED_APPS = [
 RATELIMIT_USE_CACHE = 'default'
 MIDDLEWARE = [
     'main.middleware.RateLimitMiddleware',
-    'django_ratelimit.middleware.RatelimitMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -89,27 +85,6 @@ WSGI_APPLICATION = 'BonePro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# To use Neon with Django, you have to create a Project on Neon and specify the project connection settings in your settings.py in the same way as for standalone Postgres.
-
-DATABASE_URL = "postgresql://Kastet6398:P8GFCwXq4sfp@ep-curly-sound-21591893.us-east-2.aws.neon.tech/bonepro?sslmode=require"
-
-#DATABASES = {
- #   'default': {
-      #  'ENGINE': 'django.db.backends.mysql',
-     #   'NAME': 'BonePro$ddd',
-    #    'USER': 'BonePro',
-   #     'PASSWORD': '9a1H*P5Kt.q(\'l|-lHqMIXns9&9nHzK',
-  #      'HOST': 'BonePro.mysql.pythonanywhere-services.com',
- #   }
-#}
-
-
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3',
-   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #}
-#}
 RATELIMIT_VIEW='main.views.ratelimit2'
 DATABASES = {
   'default': {
@@ -159,7 +134,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
