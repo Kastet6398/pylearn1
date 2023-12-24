@@ -4,6 +4,27 @@ from .models import Course, Theme
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from jpype import startJVM, getDefaultJVMPath, JClass, addClassPath, shutdownJVM
+import traceback
+def calculator(request):
+    result = None
+    if request.method == 'POST':
+        expression = request.POST.get('expression', '')
+
+        addClassPath("temp-1.0-SNAPSHOT.jar")
+        startJVM(getDefaultJVMPath())
+        Calculator = JClass('Calculator')
+
+        try:
+            result = Calculator.calculate(expression)
+        except:
+            traceback.print_exc()
+            result = "INTERNAL ERROR (500)"
+        finally:
+            shutdownJVM()
+
+    return render(request, 'main/calculator.html', {'result': result})
+    
 def courses(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
@@ -11,6 +32,10 @@ def courses(request):
         'courses': Course.objects.all()
     }
     return render(request, "main/courses.html", context)
+
+def calculator(request):
+    
+
 @login_required
 def themes(request, id):
     if request.COUNTRY_CODE == "RU":
