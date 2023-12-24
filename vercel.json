@@ -11,8 +11,16 @@
   ],
   "routes": [
     {
+      "src": "/(.*)",
+      "dest": "BonePro/wsgi.py"
+    },
+    {
       "src": "/favicon.ico",
       "dest": "static/favicon.ico"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "static/$1"
     }
   ]
 }
