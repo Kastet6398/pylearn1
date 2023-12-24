@@ -2,3 +2,4 @@ django
 django_country2
 psycopg2-binary
 python-memcached
+jpype
