@@ -6,12 +6,15 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 import subprocess
 import traceback
+import os
 def calculator(request):
     result = None
     if request.method == 'POST':
         expression = request.POST.get('expression', '')
         try:
-            result_bytes = subprocess.check_output(['temp-1.0-SNAPSHOT', expression])
+            current_directory = os.path.dirname(os.path.abspath(__file__))
+            jar_path = os.path.join(current_directory, 'temp-1.0-SNAPSHOT')
+            result_bytes = subprocess.check_output([jar_path, expression])
             result = result_bytes.decode('utf-8').strip()
         except:
             traceback.print_exc()
