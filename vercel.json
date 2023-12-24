@@ -10,5 +10,11 @@
       "src": "/(.*)",
       "dest": "BonePro/wsgi.py"
     }
+  ],
+  "routes": [
+    {
+      "src": "/favicon.ico",
+      "dest": "static/favicon.ico"
+    }
   ]
 }
