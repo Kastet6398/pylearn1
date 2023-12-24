@@ -4,19 +4,15 @@ from .models import Course, Theme
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from jpype import startJVM, getDefaultJVMPath, JClass, addClassPath, shutdownJVM
+import subprocess
 import traceback
 def calculator(request):
     result = None
     if request.method == 'POST':
         expression = request.POST.get('expression', '')
-
-        addClassPath("temp-1.0-SNAPSHOT.jar")
-        startJVM(getDefaultJVMPath())
-        Calculator = JClass('Calculator')
-
         try:
-            result = Calculator.calculate(expression)
+            result_bytes = subprocess.check_output(['temp-1.0-SNAPSHOT', expression])
+            result = result_bytes.decode('utf-8').strip()
         except:
             traceback.print_exc()
             result = "INTERNAL ERROR (500)"
