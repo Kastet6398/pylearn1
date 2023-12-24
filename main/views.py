@@ -31,10 +31,7 @@ def courses(request):
     context = {
         'courses': Course.objects.all()
     }
-    return render(request, "main/courses.html", context)
-
-def calculator(request):
-    
+    return render(request, "main/courses.html", context)    
 
 @login_required
 def themes(request, id):
