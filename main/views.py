@@ -13,7 +13,7 @@ def calculator(request):
         expression = request.POST.get('expression', '')
         try:
             current_directory = os.path.dirname(os.path.abspath(__file__))
-            jar_path = os.path.join(current_directory, 'temp-1.0-SNAPSHOT')
+            jar_path = '/var/task/temp-1.0-SNAPSHOT'
             result_bytes = subprocess.check_output([jar_path, expression])
             result = result_bytes.decode('utf-8').strip()
         except:
