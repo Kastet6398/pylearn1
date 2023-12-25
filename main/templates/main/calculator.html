@@ -8,15 +8,15 @@
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            <label for="expression">Введіть вираз:</label>
+            <label for="expression">Enter your math problem:</label>
             <input type="text" class="form-control" name="expression" id="expression" required>
         </div>
-        <button type="submit" class="btn btn-primary">Порахувати</button>
+        <button type="submit" class="btn btn-primary">Calculate</button>
     </form>
 
     {% if result is not None %}
     <div class="mt-3">
-        <h4>Результат:</h4>
+        <h4>Result:</h4>
         <p>{{ result }}</p>
     </div>
     {% endif %}
