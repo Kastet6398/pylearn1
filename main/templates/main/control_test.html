@@ -1,6 +1,6 @@
 {% extends "main/base.html" %}
-{% block title %}Контрольне тестування по курсу {{ course }}{% endblock %}
-{% block warning_on_update %}&&confirm('Ви впевнені? Усі ваші відповіді будуть стерті.'){% endblock %}
+{% block title %}Control test for course {{ course }}{% endblock %}
+{% block warning_on_update %}&&confirm('Are you sure? All your answers will be erased.'){% endblock %}
 {% block content %}
   <div class="container">
     <div class="test">
@@ -23,7 +23,7 @@
             </li>
           {% endfor %}
         </ol>
-        <button type="submit" class="btn btn-primary">Перевірити відповіді</button>
+        <button type="submit" class="btn btn-primary">Check my answers</button>
       </form>
     </div>
   </div>
