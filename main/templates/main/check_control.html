@@ -1,7 +1,7 @@
 {% extends "main/base.html" %}
 
 {% block title %}
-    Контрольне тестування за курсом {{ course }}
+    Control test for course {{ course }}
 {% endblock %}
 
 {% block content %}
@@ -17,16 +17,16 @@
                                     <div class="question-answer" style="color: {% if answer.answer == question.correct %}green{% elif answer.answer == question.selected %}red{% endif %};">
                                         <input type="radio" {% if answer.answer == question.selected %}checked {% endif %} disabled>
                                         {{ answer|safe }}
-                                        {% if answer.answer == question.selected %} (Ви обрали){% endif %}
+                                        {% if answer.answer == question.selected %} (you selected){% endif %}
                                     </div>
                                 {% endfor %}
                                 <p>
                                     {% if not question.selected %}
-                                        Ви не відповіли.
+                                        You didn't answer.
                                     {% elif question.selected == question.correct %}
-                                        Ви відповіли правильно.
+                                        You answered correctly.
                                     {% else %}
-                                        Ви відповіли неправильно.
+                                        You answered incorrectly.
                                     {% endif %}
                                 </p>
                             </div>
@@ -36,7 +36,7 @@
                 {% endfor %}
             </ol>
             <br>
-            Ваша кінцева оцінка: {{ score }}/{{ questions_length }} балів.
+            You scored {{ score }}/{{ questions_length }}.
         </div>
     </div>
 {% endblock %}
