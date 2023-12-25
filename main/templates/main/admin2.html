@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}{% block title %}Адміністрування{% endblock %}{% block content %} <iframe id="view" src="/admin/{{ slug }}" style="width: 100%; height: 90vh; border: none;"></iframe>
+{% extends "main/base.html" %}{% block title %}Administration{% endblock %}{% block content %} <iframe id="view" src="/admin/{{ slug }}" style="width: 100%; height: 90vh; border: none;"></iframe>
 <script>
   document.getElementById('view').addEventListener('load', function() {
     var iframeWindow = this.contentWindow;
