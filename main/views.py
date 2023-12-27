@@ -27,7 +27,7 @@ def courses(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     context = {
-        'courses': Course.objects.all()
+        'courses': Course.objects.filter(invited_users=request.user)
     }
     return render(request, "main/courses.html", context)    
 
@@ -36,8 +36,10 @@ def themes(request, id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     context = {
-        'course': Course.objects.get(pk=id)
+        'course': Course.objects.prefetch_related('invited_users', 'creator').get(pk=id)
     }
+    if request.user != context['course'].creator and (context['course'].choose_who_can_view_the_test and not (context['course'].invited_users and request.user in context['course'].invited_users))):
+        return HttpResponseForbidden("You don't have permission to view this course.")
     return render(request, "main/presentations.html", context)
 
 def admin3(request):
