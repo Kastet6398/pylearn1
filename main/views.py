@@ -38,7 +38,7 @@ def themes(request, id):
     context = {
         'course': Course.objects.prefetch_related('invited_users', 'creator').get(pk=id)
     }
-    if request.user != context['course'].creator and (context['course'].choose_who_can_view_the_test and not (context['course'].invited_users and request.user in context['course'].invited_users)):
+    if request.user != context['course'].creator and (context['course'].choose_who_can_view_the_course and not (context['course'].invited_users and request.user in context['course'].invited_users)):
         return HttpResponseForbidden("You don't have permission to view this course.")
     return render(request, "main/presentations.html", context)
 
