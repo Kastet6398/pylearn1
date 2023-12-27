@@ -44,8 +44,13 @@ class Course(models.Model):
     themes = models.ManyToManyField(Theme)
     name = models.CharField(max_length=255)
     invited_users = models.ManyToManyField(User)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created', default=get_user)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created', blank=True, null=True)
     control_test = models.ForeignKey(Test, on_delete=models.CASCADE, null=True, blank=True)
+
+    def save(self, request, *args, **kwargs):
+        if not self.user:
+            self.user = get_user(request)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
