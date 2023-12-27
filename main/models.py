@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.middleware import get_user
+
 
 class Answer(models.Model):
     answer = models.TextField()
@@ -42,6 +44,7 @@ class Course(models.Model):
     themes = models.ManyToManyField(Theme)
     name = models.CharField(max_length=255)
     invited_users = models.ManyToManyField(User)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created', default=get_user)
     control_test = models.ForeignKey(Test, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
