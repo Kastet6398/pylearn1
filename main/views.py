@@ -9,7 +9,6 @@ import traceback
 import time
 import os
 def calculator(request):
-    time.sleep(20)
     result = None
     if request.method == 'POST':
         expression = request.POST.get('expression', '')
