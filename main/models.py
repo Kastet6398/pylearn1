@@ -43,7 +43,7 @@ class Theme(models.Model):
 class Course(models.Model):
     themes = models.ManyToManyField(Theme)
     name = models.CharField(max_length=255)
-    invited_users = models.ManyToManyField(User)
+    invited_users = models.ManyToManyField(User, blank=True, null=True)
     choose_who_can_view_the_course = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created', blank=True, null=True)
     control_test = models.ForeignKey(Test, on_delete=models.CASCADE, null=True, blank=True)
