@@ -1,26 +1,15 @@
-{% extends "main/base.html" %}{% block title %}Administration{% endblock %}{% block content %} <iframe id="view" src='/' style="width: 100%; height: 90vh; border: none;"></iframe>
+{% extends "main/base.html" %}{% block title %}Administration{% endblock %}{% block content %} <iframe id="view" style="width: 100%; height: 90vh; border: none;"></iframe>
 <script>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  document.getElementById('view').src = location.href.replace("https://py-learn.vercel.app/admin2/", "/admin/");
-=======
-  document.getElementById('view').src = location.href.replace("https://py-learn.vercel.app/admin2/", "admin/");
->>>>>>> parent of 79aaebe (9)
-=======
-  document.getElementById('view').src = location.href.replace("https://py-learn.vercel.app/admin2/", "admin/");
->>>>>>> parent of 79aaebe (9)
-=======
-  document.getElementById('view').src = location.href.replace("https://py-learn.vercel.app/admin2/", "admin/");
->>>>>>> parent of 79aaebe (9)
-=======
-  document.getElementById('view').src = location.href.replace("https://py-learn.vercel.app/admin2/", "admin/");
->>>>>>> parent of 79aaebe (9)
+  document.getElementById('view').src = location.href.replace(location.origin + "/admin2/", "/admin/");
   document.getElementById('view').addEventListener('load', function() {
     var iframeWindow = this.contentWindow;
     iframeWindow.document.querySelectorAll('a').forEach(function(link) {
-      link.href = link.href.replace('/admin/', '/admin2/');
+      link.addEventListener('click', function(event) {
+        if  (!link.href.includes("_popup=1")) {
+            event.preventDefault();
+            window.location.href = link.href.replace('/admin/', '/admin2/');
+	}
+      });
     });
   });
 </script>{% endblock %}
