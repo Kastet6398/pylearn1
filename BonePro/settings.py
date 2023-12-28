@@ -35,7 +35,7 @@ DEBUG = 1
 
 ALLOWED_HOSTS = ['127.0.0.1','51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 'py-learn.onrender.com']
 
-
+APPEND_SLASH = False
 # Application definition
 
 INSTALLED_APPS = [
