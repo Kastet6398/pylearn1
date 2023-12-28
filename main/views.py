@@ -8,6 +8,7 @@ import subprocess
 import traceback
 import time
 import os
+from django.http import HttpResponse
 def calculator(request):
     result = None
     if request.method == 'POST':
@@ -22,7 +23,10 @@ def calculator(request):
             result = "INTERNAL ERROR (500)"
 
     return render(request, 'main/calculator.html', {'result': result})
-    
+
+def keep_alive(request):
+    return HttpResponse(status=204)
+
 def courses(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
