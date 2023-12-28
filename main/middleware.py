@@ -11,7 +11,7 @@ class RateLimitMiddleware:
 
     def __call__(self, request):
         is_static_request = request.path.startswith(settings.STATIC_URL)
-        if not is_static_request:
+        if not is_static_request and request.path.endswith('/'):
             ip_address = self.get_client_ip(request)
             allowed_requests = 40
             time_window = 60
