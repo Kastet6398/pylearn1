@@ -13,7 +13,7 @@ class RateLimitMiddleware:
         is_static_request = request.path.startswith(settings.STATIC_URL)
         if not is_static_request:
             ip_address = self.get_client_ip(request)
-            allowed_requests = 20
+            allowed_requests = 40
             time_window = 60
     
             with transaction.atomic():
@@ -24,7 +24,7 @@ class RateLimitMiddleware:
                     rate_limit.connection_number = 0
                     rate_limit.timestamp = current_time
                     rate_limit.save()
-    
+
                 if rate_limit.connection_number >= allowed_requests:
                     return HttpResponseForbidden('Too many requests. Please try again later.')
     
