@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth.middleware import get_user
-
 
 class Answer(models.Model):
     answer = models.TextField()
@@ -47,11 +45,6 @@ class Course(models.Model):
     choose_who_can_view_the_course = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created', blank=True, null=True)
     control_test = models.ForeignKey(Test, on_delete=models.CASCADE, null=True, blank=True)
-
-    def save(self, request, *args, **kwargs):
-        if not self.user:
-            self.user = get_user(request)
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

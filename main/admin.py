@@ -4,6 +4,13 @@ from .models import Course, Theme, Test, Question, Answer
 class CourseAdmin(admin.ModelAdmin):
     list_per_page = 15
 
+    class Media:
+        js = ("admin/js/toggleInvitedUsersField.js",)
+    
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
+
 class ThemeAdmin(admin.ModelAdmin):
     list_per_page = 15
 
