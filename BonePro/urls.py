@@ -20,7 +20,7 @@ import accounts.urls
 import admin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
     path('', include(main.urls)),
-    path('accounts/', include(accounts.urls)),
+    path('accounts', include(accounts.urls)),
 ]
