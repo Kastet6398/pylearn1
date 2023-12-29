@@ -30,7 +30,7 @@ def keep_alive(request):
 def courses(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
-    courses = [i for i in Course.objects.all() if not(request.user != i.user and (i.choose_who_can_view_the_course and not (i.invited_users and request.user in i.invited_users)))]
+    courses = [i for i in Course.objects.all() if not(request.user != i.user and (i.choose_who_can_view_the_course and not (i.invited_users.all() and request.user in i.invited_users.all()))))]
     context = {
         'courses': courses
     }
@@ -43,7 +43,7 @@ def themes(request, id):
     context = {
         'course': Course.objects.prefetch_related('invited_users', 'user').get(pk=id)
     }
-    if request.user != context['course'].user and (context['course'].choose_who_can_view_the_course and not (context['course'].invited_users and request.user in context['course'].invited_users)):
+    if request.user != context['course'].user and (context['course'].choose_who_can_view_the_course and not (context['course'].invited_users.all() and request.user in context['course'].invited_users.all())):
         return HttpResponseForbidden("You don't have permission to view this course.")
     return render(request, "main/presentations.html", context)
 
