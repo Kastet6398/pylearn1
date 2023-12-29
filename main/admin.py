@@ -4,6 +4,15 @@ from .models import Course, Theme, Test, Question, Answer
 class CourseAdmin(admin.ModelAdmin):
     list_per_page = 15
 
+    fieldsets = (
+        ('Main', {
+            'fields': ('name', 'themes', 'control_test')
+        }),
+        ('Security', {
+            'fields': ('choose_who_can_view_the_course', 'invited_users')
+        }),
+    )
+
     class Media:
         js = ("admin/js/toggleInvitedUsersField.js",)
     
