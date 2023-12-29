@@ -18,7 +18,56 @@
             width: min(3vh, 3vw);
             height: min(3vh, 3vw);
         }
+        
     </style>
+    
+    <style>/*
+      body{
+        background:#5005a9 !important;
+      }
+      .content > :not(.form-content) * {
+        color: lightgray !important;
+      }*/
+
+      .snowflake {
+        color: #fff;
+        font-size: 1em;
+        font-family: Arial;
+        text-shadow: 0 0 1px #000;
+        position: fixed;
+        top: 1em;
+        z-index: 9999999999;
+        user-select: none;
+        cursor: default;
+        animation-name: snowflakes-fall, snowflakes-shake;
+        animation-duration: 10s, 10s;
+        animation-timing-function: linear, ease-in-out;
+        animation-iteration-count: infinite, infinite;
+        animation-play-state: running, running;
+      }
+
+      @keyframes snowflakes-fall {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100vh;
+        }
+      }
+
+      @keyframes snowflakes-shake {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(80px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+    </style>
+            
     <link rel="manifest" href="/static/manifest.json">
     <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
@@ -65,8 +114,35 @@
           </div>
         </nav>
     </header>
-    {% block content %}{% endblock %}
+    <div class='content'>
+    	{% block content %}{% endblock %}
+    </div>
     <br>
+<script>
+  // Function to generate a random number between min and max
+  function getRandomNumber(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  // Function to create a snowflake with random position
+  function createSnowflake() {
+    if (!document.hidden) {
+      const snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowflake.innerHTML = '❄️'; // You can replace this with any snowflake icon or text
+      snowflake.style.left = `${getRandomNumber(0, window.innerWidth)}px`;
+      document.body.appendChild(snowflake);
+
+      // Remove the snowflake after it falls
+      snowflake.addEventListener('animationiteration', () => {
+        snowflake.remove();
+      });
+    }
+  }
+  createSnowflake();
+  // Create a snowflake every 300 milliseconds
+  setInterval(createSnowflake, 1000);
+</script>
 
 </body>
 
