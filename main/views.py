@@ -30,7 +30,7 @@ def keep_alive(request):
 def courses(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
-    courses = [i for i in Course.objects.all() if not(request.user != i.user and (i.choose_who_can_view_the_course and not (i.invited_users.all() and request.user in i.invited_users.all()))))]
+    courses = [i for i in Course.objects.all() if not(request.user != i.user and (i.choose_who_can_view_the_course and not (i.invited_users.all() and request.user in i.invited_users.all())))]
     context = {
         'courses': courses
     }
