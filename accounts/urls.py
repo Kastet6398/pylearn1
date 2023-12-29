@@ -14,9 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import logout_user, RegisterUser, LoginUser
+from .views import logout_user, RegisterUser, LoginUser, ResetPasswordView
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('password-reset-complete/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'),
+         name='password_reset_complete'),
+    path('password-reset-confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name='accounts/password_reset_confirm.html'),
+         name='password_reset_confirm'),
+    path('password-reset/', ResetPasswordView.as_view(), name='password_reset'),
     path('logout/', logout_user),
     path('registration/', RegisterUser.as_view()),
     path('login/', LoginUser.as_view())
