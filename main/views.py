@@ -41,7 +41,7 @@ def themes(request, id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     context = {
-        'course': Course.objects.prefetch_related('invited_users', 'creator').get(pk=id)
+        'course': Course.objects.prefetch_related('invited_users', 'user').get(pk=id)
     }
     if request.user != context['course'].user and (context['course'].choose_who_can_view_the_course and not (context['course'].invited_users and request.user in context['course'].invited_users)):
         return HttpResponseForbidden("You don't have permission to view this course.")
