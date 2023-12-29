@@ -56,7 +56,7 @@
   --object-tools-bg: var(--close-button-bg);
   --object-tools-hover-bg: var(--close-button-hover-bg);
 }
-
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --primary: #264b5d;
@@ -90,7 +90,7 @@
     --close-button-hover-bg: #666666;
   }
 }
-
+*/
 html, body {
     height: 100%;
 }
