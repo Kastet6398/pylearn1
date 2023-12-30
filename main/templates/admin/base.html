@@ -6,60 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
 {% if not is_popup and is_nav_sidebar_enabled %}
   <link rel="stylesheet" type="text/css" href="{% static "admin/css/nav_sidebar.css" %}">
-<style>
 
-/* VARIABLE DEFINITIONS */
-:root {
-  --primary: #79aec8;
-  --secondary: #417690;
-  --accent: #f5dd5d;
-  --primary-fg: #fff;
-
-  --body-fg: #333;
-  --body-bg: #fff;
-  --body-quiet-color: #666;
-  --body-loud-color: #000;
-
-  --header-color: #ffc;
-  --header-branding-color: var(--accent);
-  --header-bg: var(--secondary);
-  --header-link-color: var(--primary-fg);
-
-  --breadcrumbs-fg: #c4dce8;
-  --breadcrumbs-link-fg: var(--body-bg);
-  --breadcrumbs-bg: var(--primary);
-
-  --link-fg: #447e9b;
-  --link-hover-color: #036;
-  --link-selected-fg: #5b80b2;
-
-  --hairline-color: #e8e8e8;
-  --border-color: #ccc;
-
-  --error-fg: #ba2121;
-
-  --message-success-bg: #dfd;
-  --message-warning-bg: #ffc;
-  --message-error-bg: #ffefef;
-
-  --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
-  --selected-bg: #e4e4e4; /* E.g. selected table cells */
-  --selected-row: #ffc;
-
-  --button-fg: #fff;
-  --button-bg: var(--primary);
-  --button-hover-bg: #609ab6;
-  --default-button-bg: var(--secondary);
-  --default-button-hover-bg: #205067;
-  --close-button-bg: #888; /* Previously #bbb, contrast 1.92 */
-  --close-button-hover-bg: #747474;
-  --delete-button-bg: #ba2121;
-  --delete-button-hover-bg: #a41515;
-
-  --object-tools-fg: var(--button-fg);
-  --object-tools-bg: var(--close-button-bg);
-  --object-tools-hover-bg: var(--close-button-hover-bg);
-}</style>
   <script src="{% static 'admin/js/nav_sidebar.js' %}" defer></script>
 {% endif %}
 {% block extrastyle %}{% endblock %}
@@ -71,30 +18,6 @@
     {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
 {% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
-<!--<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var allLinks = document.querySelectorAll('a');
-
-    for (var i = 0; i < allLinks.length; i++)
-        allLinks[i].addEventListener('click', function(event) {
-            openLink(event, this);
-        });
-    function openLink(event, link) {
-		    if (link.href.includes("_popup=1")) {
-				    var popup = window.open(link.href, "newwindow", "height=500,width=500");
-				    
-    // Attach an onbeforeunload event handler to the popup
-    popup.onbeforeunload = function() {
-        // Code to execute when the popup is about to be closed
-        location.reload();
-    };
-			    }
-        else window.location.href = link.href;
-        event.preventDefault();
-    }
-});
-</script>
--->
 </head>
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
@@ -103,37 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="container">
 
     {% if not is_popup %}
-    <!-- Header -->
-    {% block header %}
-    <div id="header">
-        <div id="branding">
-        {% block branding %}{% endblock %}
-        </div>
-        {% block usertools %}
-        {% if has_permission %}
-        <div id="user-tools">
-            {% block userlinks %}
-                {% if site_url %}
-                    <a href="/themes">{% translate 'View site' %}</a> /
-                {% endif %}
-                {% if user.is_active and user.is_staff %}
-                    {% url 'django-admindocs-docroot' as docsroot %}
-                    {% if docsroot %}
-                        <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /
-                    {% endif %}
-                {% endif %}
-                {% if user.has_usable_password %}
-                <a href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a> /
-                {% endif %}
-                <a href="{% url 'admin:logout' %}">{% translate 'Log out' %}</a>
-            {% endblock %}
-        </div>
-        {% endif %}
-        {% endblock %}
-        {% block nav-global %}{% endblock %}
-    </div>
-    {% endblock %}
-    <!-- END Header -->
     {% block breadcrumbs %}
     <div class="breadcrumbs">
     <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
