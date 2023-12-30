@@ -1,0 +1,8 @@
+* {
+    font-size: min(3vh, 3vw);
+}
+
+input[type=radio] {
+    width: min(3vh, 3vw);
+    height: min(3vh, 3vw);
+}
