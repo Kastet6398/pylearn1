@@ -23,7 +23,7 @@
 
   --breadcrumbs-fg: #c4dce8;
   --breadcrumbs-link-fg: var(--body-bg);
-  --breadcrumbs-bg: var(--primary);
+  --breadcrumbs-bg: #cdcdcd;
 
   --link-fg: #447e9b;
   --link-hover-color: #036;
