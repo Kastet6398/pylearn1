@@ -6,3 +6,4 @@ whitenoise
 gunicorn
 whitenoise
 sentry-sdk[django]
+gunicorn
