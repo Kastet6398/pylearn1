@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['127.0.0.1','51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 
 RATELIMIT_USE_CACHE = 'default'
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'main.middleware.RateLimitMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -60,6 +62,9 @@ MIDDLEWARE = [
     'django_country2.middleware.CountryMiddleware'
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://api.uptimerobot.com",
+]
 ROOT_URLCONF = 'BonePro.urls'
 
 TEMPLATES = [
