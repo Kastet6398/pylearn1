@@ -2,6 +2,6 @@ django
 django_country2
 psycopg2-binary
 django-cors-headers
+whitenoise
 gunicorn
 sentry-sdk[django]
-whitenoise
