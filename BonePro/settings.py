@@ -43,7 +43,7 @@ EMAIL_HOST_PASSWORD = 'cpjbozbnewszensz'
 SECRET_KEY = 'django-insecure-9_kf_q8_!t%h)igs9is@z!_j8z_&j*2=r(1=ks(8qnd#3$693o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 1
+DEBUG = 0
 
 ALLOWED_HOSTS = ['127.0.0.1','51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 'py-learn.onrender.com']
 
