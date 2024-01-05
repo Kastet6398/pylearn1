@@ -28,9 +28,10 @@ class Test(models.Model):
 
 class Theme(models.Model):
     name = models.CharField(max_length=255)
-    test = models.ForeignKey(Test, on_delete=models.CASCADE)
-    presentation_url = models.CharField(max_length=255)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, blank=True, null=True)
+    presentation_url = models.CharField(max_length=255, blank=True, null=True)
     position_in_themes_list = models.IntegerField()
+    description = models.TextField()
 
     class Meta:
         ordering = ['position_in_themes_list']
