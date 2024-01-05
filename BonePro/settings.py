@@ -33,7 +33,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'bones.equation.solver.noreply@gmail.com'
-EMAIL_HOST_PASSWORD = 'cpjbozbnewszensz'
+EMAIL_HOST_PASSWORD = 'rklbjrcmaiqrddnd'
 
 
 # Quick-start development settings - unsuitable for production

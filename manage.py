@@ -1,13 +1,22 @@
+#!/usr/bin/env python3.10
+"""Django's command-line utility for administrative tasks."""
 import os
 import sys
-import timeit# a generator that yields items instead of returning a list
-sys.set_int_max_str_digits(sys.maxsize // 10000000000)
-def firstn(n):
-    num = 0
-    while num < n:
-        yield num
-        num += 1
 
-print(range(sys.maxsize ** 999))
-print(timeit.timeit("sum(firstn(1000000))", globals={"firstn": firstn}, number=1))
-print(timeit.timeit("sum(range(1000000))", globals={"firstn": firstn}, number=1))
+
+def main():
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BonePro.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
+
+
+if __name__ == '__main__':
+    main()

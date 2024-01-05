@@ -56,6 +56,12 @@ def admin2(request, slug):
 def header(request):
     return render(request, "main/header.html", {})
 
+def theme(request, id):
+    context = {
+        'theme': Theme.objects.get(pk=id)
+    }
+    return render(request, 'main/theme.html', context)
+
 @login_required
 def test(request, id):
     if request.COUNTRY_CODE == "RU":

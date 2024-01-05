@@ -1,0 +1,2 @@
+{% extends "main/base.html" %}{% block title %}Theme {{ theme.name }}{% endblock %}{% block content %}<div class="container"><p>{{ theme.description|safe }}</p></p>{{ theme.name }}</td><td><a href="/presentation/{{ theme.id }}" class="btn btn-primary">Open Presentation</a>{% if theme.test %}<a href="/test/{{ theme.id }}" class="btn btn-success">Take Test</a>{% endif %}</p></div>{% endblock %}
+
