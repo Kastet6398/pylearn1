@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, re_path
-from .views import admin2, admin3, courses, themes, test, presentation, check, update, download, admin2, control_test, check_control, header, calculator, keep_alive
+from .views import admin2, admin3, courses, themes, test, check, update, download, admin2, control_test, check_control, header, calculator, keep_alive, theme, embed
 
 urlpatterns = [
     re_path(r'^/*$', courses, name='index'),
@@ -24,7 +24,6 @@ urlpatterns = [
     path('calculator/', calculator),
     path('test/<int:id>/', test),
     path('control-test/<int:id>/', control_test),
-    path('presentation/<int:id>/', presentation),
     path('check/<int:id>/', check),
     path('check-control/<int:id>/', check_control),
     path('update/', update),
@@ -32,4 +31,6 @@ urlpatterns = [
     path('admin2/', admin3),
     path('download/', download),
     path('header/', header),
+    path('theme/<int:id>/', theme),
+    re_path(r'^embed/(?P<resource>.+)/*$', embed)
 ]

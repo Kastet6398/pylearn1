@@ -1,13 +1,13 @@
 {% extends "main/base.html" %}
-{% block title %}Test for theme {{ theme }}{% endblock %}
+{% block title %}Test{% endblock %}
 {% block warning_on_update %}&&confirm('Are you sure? All your answers will be erased.'){% endblock %}
 {% block content %}
   <div class="container">
     <div class="test">
-      <form action="/check/{{ theme.id }}/" method="post">
+      <form action="/check/{{ test.id }}/" method="post">
         {% csrf_token %}
         <ol>
-          {% for question in theme.test.questions.all %}
+          {% for question in test.questions.all %}
             <li>
               <div class="question">
                 <div class="question-title">{{ question.question|safe }}</div>

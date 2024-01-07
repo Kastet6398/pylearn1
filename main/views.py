@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseForbidden
-from .models import Course, Theme
+from .models import Course, Theme, Test
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -10,6 +10,8 @@ import time
 import os
 from django.http import HttpResponse
 def calculator(request):
+    if request.COUNTRY_CODE == "RU":
+        return HttpResponseForbidden("Go away!")
     result = None
     if request.method == 'POST':
         expression = request.POST.get('expression', '')
@@ -48,15 +50,24 @@ def themes(request, id):
     return render(request, "main/presentations.html", context)
 
 def admin3(request):
+    if request.COUNTRY_CODE == "RU":
+        return HttpResponseForbidden("Go away!")
     return render(request, "main/admin2.html", {'slug': ''})
 
 def admin2(request, slug):
+    if request.COUNTRY_CODE == "RU":
+        return HttpResponseForbidden("Go away!")
     return render(request, "main/admin2.html", {'slug': slug})
 
 def header(request):
+    if request.COUNTRY_CODE == "RU":
+        return HttpResponseForbidden("Go away!")
     return render(request, "main/header.html", {})
 
+@login_required
 def theme(request, id):
+    if request.COUNTRY_CODE == "RU":
+        return HttpResponseForbidden("Go away!")
     context = {
         'theme': Theme.objects.get(pk=id)
     }
@@ -67,7 +78,7 @@ def test(request, id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     context = {
-        'theme': Theme.objects.get(pk=id)
+        'test': Test.objects.get(pk=id)
     }
     return render(request, "main/test.html", context)
 
@@ -86,15 +97,13 @@ def download(request):
         return HttpResponseForbidden("Go away!")
     return render(request, "main/download.html")
 
-@login_required
-def presentation(request, id):
+def embed(request, resource):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
-    theme = Theme.objects.get(pk=id)
     context = {
-        'theme': theme
+        'resource': resource
     }
-    return render(request, "main/presentation.html", context)
+    return render(request, "main/embed.html", context)
 
 @login_required
 def check(request, id):
@@ -104,8 +113,7 @@ def check(request, id):
         correct_test = {}
         score = 0
         correct_test_questions = []
-        theme = Theme.objects.get(pk=id)
-        test = theme.test
+        test = Test.objects.get(pk=id)
         for question in test.questions.all():
             user_answer = request.POST.get(f"q{question.id}")
             correct_test_question = {}
@@ -121,7 +129,6 @@ def check(request, id):
             'test': correct_test,
             'questions_length': len(correct_test_questions),
             'score': score,
-            'theme': theme
         }
         return render(request, "main/check.html", context)
     return JsonResponse({'message': 'Invalid request method'})

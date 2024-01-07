@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Course, Theme, Test, Question, Answer
+from .models import Course, Theme, Test, Question, Answer, AdditionalResource
+from django import forms
+
+class AdditionalResourceAdmin(admin.ModelAdmin):
+    search_fields = ["url"]
+
 
 class CourseAdmin(admin.ModelAdmin):
     list_per_page = 15
@@ -21,6 +26,7 @@ class CourseAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class ThemeAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['additional_resources']
     list_per_page = 15
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -31,9 +37,11 @@ class AnswerAdmin(admin.ModelAdmin):
 
 class TestAdmin(admin.ModelAdmin):
     list_per_page = 15
+#    autocomplete_fields = ['questions']
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Theme, ThemeAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Test, TestAdmin)
+admin.site.register(AdditionalResource, AdditionalResourceAdmin)

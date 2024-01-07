@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 class Answer(models.Model):
     answer = models.TextField()
@@ -11,6 +12,13 @@ class RateLimit(models.Model):
     ip_address = models.GenericIPAddressField()
     timestamp = models.DateTimeField(auto_now_add=True)
     connection_number = models.PositiveIntegerField(default=0)
+
+class AdditionalResource(models.Model):
+    url = models.URLField()
+    title = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.title
 
 class Question(models.Model):
     question = models.TextField()
@@ -29,9 +37,10 @@ class Test(models.Model):
 class Theme(models.Model):
     name = models.CharField(max_length=255)
     test = models.ForeignKey(Test, on_delete=models.CASCADE, blank=True, null=True)
-    presentation_url = models.CharField(max_length=255, blank=True, null=True)
+    video_meeting = models.URLField(blank=True, null=True)
     position_in_themes_list = models.IntegerField()
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
+    additional_resources = models.ManyToManyField(AdditionalResource)
 
     class Meta:
         ordering = ['position_in_themes_list']
