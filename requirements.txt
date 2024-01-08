@@ -5,3 +5,5 @@ django-cors-headers
 whitenoise
 gunicorn
 sentry-sdk[django]
+cloudinary
+

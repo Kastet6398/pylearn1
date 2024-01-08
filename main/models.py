@@ -41,6 +41,7 @@ class Theme(models.Model):
     position_in_themes_list = models.IntegerField()
     description = models.TextField(blank=True, null=True)
     additional_resources = models.ManyToManyField(AdditionalResource)
+    has_homework = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['position_in_themes_list']

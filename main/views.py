@@ -9,6 +9,15 @@ import traceback
 import time
 import os
 from django.http import HttpResponse
+import cloudinary
+import cloudinary.uploader
+cloudinary.config( 
+  cloud_name = "dkmvoezsb", 
+  api_key = "453639488567156", 
+  api_secret = "VerqaZWCdO2tioT2EBLb3dn0hrM" 
+)
+
+
 def calculator(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
