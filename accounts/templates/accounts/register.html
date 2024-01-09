@@ -32,52 +32,46 @@
                             <form method="POST">
                                 {% csrf_token %}
                                 
-                                <div class="form-row">
-                                    <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label class="small mb-1" for="id_username">Username</label>
                                             <input type="text" name="username" class="form-control" autofocus="" required id="id_username" placeholder="Enter username">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label class="small mb-1" for="id_email">Email</label>
                                             <input type="email" name="email" class="form-control" maxlength="320" required id="id_email" placeholder="Enter email">
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-6">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label class="small mb-1" for="id_password1">Password</label>
                                             <input type="password" name="password1" class="form-control" required id="id_password1" placeholder="Enter password">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label class="small mb-1" for="id_password2">Confirm Password</label>
                                             <input type="password" name="password2" class="form-control" required id="id_password2" placeholder="Confirm password">
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-6">
+				    </div>
+				    <div class="col-6">
                                         <div class="form-group">
                                             <label class="small mb-1" for="id_first_name">First Name</label>
                                             <input type="text" name="first_name" class="form-control" required id="id_first_name" placeholder="Enter first name">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label class="small mb-1" for="id_last_name">Last Name</label>
                                             <input type="text" name="last_name" class="form-control" required id="id_last_name" placeholder="Enter last name">
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-row">
+				<br>
+                                <div class="row">
                                   <div class="col-md-12">
                                     <div class="form-group mt-0 mb-1">
                                         <button type="submit" class="col-md-12 btn btn-dark">Register</button>

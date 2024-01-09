@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import ArrayField
 
+from multiupload.fields import MultiFileField
 class Answer(models.Model):
     answer = models.TextField()
 
@@ -33,6 +33,14 @@ class Test(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+class Attachment(models.Model):
+    file = models.FileField(upload_to='uploads/')
+
+class HomeWork(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    theme = models.ForeignKey('Theme', on_delete=models.CASCADE)
+    attachments = models.ManyToManyField(Attachment)
 
 class Theme(models.Model):
     name = models.CharField(max_length=255)

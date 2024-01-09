@@ -5,5 +5,5 @@ django-cors-headers
 whitenoise
 gunicorn
 sentry-sdk[django]
-cloudinary
-
+django_cloudinary_storage
+django-multiupload

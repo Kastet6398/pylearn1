@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponseForbidden
-from .models import Course, Theme, Test
+from django.http import JsonResponse, HttpResponseForbidden, HttpResponseRedirect
+from .models import Course, Theme, Test, Attachment
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -10,13 +10,43 @@ import time
 import os
 from django.http import HttpResponse
 import cloudinary
-import cloudinary.uploader
 cloudinary.config( 
   cloud_name = "dkmvoezsb", 
   api_key = "453639488567156", 
   api_secret = "VerqaZWCdO2tioT2EBLb3dn0hrM" 
 )
 
+from django.views.generic.edit import CreateView
+from .models import HomeWork
+from .forms import HomeWorkForm
+
+class HomeWorkCreateView(CreateView):
+    model = HomeWork
+    form_class = HomeWorkForm
+    template_name = 'main/home_work.html'
+    success_url = '/'
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        files = request.FILES.getlist('attachments')
+        o = HomeWork(theme=Theme.objects.get(pk=int(request.POST['theme'])), user=request.user)
+        o.save()
+        if 'attachments' not in request.FILES or not form.is_valid():
+            return HttpResponseRedirect(reverse_lazy("index"))
+        
+        if form.is_valid():
+            for file in files:
+                a = Attachment.objects.create(file=file)
+                o.attachments.add(a)
+            o.save()
+
+            return HttpResponseRedirect(self.request.path_info)
+        else:
+            return self.form_invalid(form)
+
+def ggg(request):
+    return render(request, 'main/ggg.html', {})
 
 def calculator(request):
     if request.COUNTRY_CODE == "RU":

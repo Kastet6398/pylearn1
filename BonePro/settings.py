@@ -23,7 +23,7 @@ sentry_sdk.init(
 )
 import os
 from pathlib import Path
-
+import cloudinary_storage
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 RATE_LIMIT = '10/m'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,6 +50,7 @@ ALLOWED_HOSTS = ['127.0.0.1','51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 
 # Application definition
 
 INSTALLED_APPS = [
+    'django_better_admin_arrayfield',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -57,7 +58,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'cloudinary',
+    'cloudinary_storage'
 ]
 
 RATELIMIT_USE_CACHE = 'default'
@@ -158,3 +161,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dkmvoezsb',
+    'API_KEY': '453639488567156',
+    'API_SECRET': 'VerqaZWCdO2tioT2EBLb3dn0hrM',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
