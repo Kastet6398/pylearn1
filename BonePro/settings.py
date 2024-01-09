@@ -50,7 +50,6 @@ ALLOWED_HOSTS = ['127.0.0.1','51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 
 # Application definition
 
 INSTALLED_APPS = [
-    'django_better_admin_arrayfield',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
