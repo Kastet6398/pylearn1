@@ -26,7 +26,7 @@ class MultipleFileField(forms.FileField):
 class HomeWorkForm(forms.ModelForm):
     class Meta:
         model = HomeWork
-        fields = ['theme']
+        fields = []
 
     attachments = MultipleFileField()
     def save(self, commit=True):

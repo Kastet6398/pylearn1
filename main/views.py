@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponseForbidden, HttpResponseRedirect
 from .models import Course, Theme, Test, Attachment
 from django.contrib.auth.decorators import login_required
@@ -16,34 +16,35 @@ cloudinary.config(
   api_secret = "VerqaZWCdO2tioT2EBLb3dn0hrM" 
 )
 
-from django.views.generic.edit import CreateView
 from .models import HomeWork
 from .forms import HomeWorkForm
 
-class HomeWorkCreateView(CreateView):
-    model = HomeWork
-    form_class = HomeWorkForm
-    template_name = 'main/home_work.html'
-    success_url = '/'
 
-    def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
+def home_work_create_view(request):
+    if request.method == 'POST':
+        form = HomeWorkForm(request.POST)
         files = request.FILES.getlist('attachments')
-        o = HomeWork(theme=Theme.objects.get(pk=int(request.POST['theme'])), user=request.user)
-        o.save()
-        if 'attachments' not in request.FILES or not form.is_valid():
-            return HttpResponseRedirect(reverse_lazy("index"))
-        
-        if form.is_valid():
-            for file in files:
-                a = Attachment.objects.create(file=file)
-                o.attachments.add(a)
-            o.save()
 
-            return HttpResponseRedirect(self.request.path_info)
-        else:
-            return self.form_invalid(form)
+        if 'attachments' not in request.FILES or not form.is_valid():
+            return redirect('index')
+
+        theme = Theme.objects.get(pk=int(request.POST['theme']))
+        user = request.user
+
+        home_work_instance = HomeWork(theme=theme, user=user)
+        home_work_instance.save()
+
+        for file in files:
+            attachment_instance = Attachment.objects.create(file=file)
+            home_work_instance.attachments.add(attachment_instance)
+
+        home_work_instance.save()
+
+        return redirect(request.path_info)
+    else:
+        form = HomeWorkForm()
+
+    return render(request, 'main/home_work.html', {'form': form})
 
 def ggg(request):
     return render(request, 'main/ggg.html', {})
@@ -107,8 +108,27 @@ def header(request):
 def theme(request, id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
+    
+    homework_form = HomeWorkForm()
+    theme = Theme.objects.get(pk=id)
+
+    if request.method == 'POST':
+        homework_form = HomeWorkForm(request.POST, request.FILES)
+        if homework_form.is_valid():
+            user = request.user
+
+            homework = HomeWork(theme=theme, user=user)
+            homework.save()
+
+            for file in request.FILES.getlist('attachments'):
+                attachment = Attachment.objects.create(file=file)
+                homework.attachments.add(attachment)
+
+            return redirect(f'/theme/{id}')
+
     context = {
-        'theme': Theme.objects.get(pk=id)
+        'theme': theme,
+        'hw_form': homework_form
     }
     return render(request, 'main/theme.html', context)
 

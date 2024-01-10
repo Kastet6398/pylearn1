@@ -7,3 +7,4 @@ gunicorn
 sentry-sdk[django]
 django_cloudinary_storage
 django-multiupload
+djangorestframework
