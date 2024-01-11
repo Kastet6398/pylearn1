@@ -65,7 +65,6 @@ INSTALLED_APPS = [
 RATELIMIT_USE_CACHE = 'default'
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'main.middleware.RateLimitMiddleware',
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,7 +73,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_country2.middleware.CountryMiddleware'
+    'django_country2.middleware.CountryMiddleware',
+    'main.middleware.CountryMiddleware',
+    'main.middleware.RateLimitMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [

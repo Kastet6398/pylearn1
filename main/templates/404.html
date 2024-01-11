@@ -2,10 +2,5 @@
 {% block content %}
 <h4>404</h4>
 <p>Sorry, this page doesn't exist...</p>
-<img id="img" src="/static/404-light.jpeg" />
-<script defer>
-	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		document.getElementById('img').src = "/static/404-dark.jpeg";
-	}
-</script>
+<img id="img" src="/static/404.jpeg" />
 {% endblock %}
