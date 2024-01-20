@@ -1,45 +1,50 @@
-{% extends "main/base.html" %}{% block title %}Завантажити додаток{% endblock %}{% block content %} <script defer>
+{% extends "main/base.html" %}{% block title %}Завантажити додаток{% endblock %}{% block content %}
+<script defer>
 
 
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const downloadLink = document.querySelector("#download");
+        const instructions = document.querySelector("#instructions");
+        const downloadFrame = document.querySelector("#downloadFrame");
+
+        var os = navigator.userAgent;
+        if (os.includes('Windows')) {
+        downloadLink.onclick=()=>{window.open("https://dc688.4shared.com/download/dSSiCXKnge/py_learn.exe?tsid=20231104-172028-bac9459d&sbsr=2048298230a851828bf33df78b3d49e1af9&bip=MTg4LjE2My43Mi4xOTE&lgfp=30", "_blank")
+    ;};
+
+        downloadLink.innerText += " Windows";
+        instructions.innerHTML += `<li>Відкрийте файл, що завантажився.</li><li>Запустіть його.</li><li>Якщо у вас встановлений антивірус, то краще почекайте, поки він перевіряє файл. Якщо антивірус закрився, а програма не запускається, спробуйте перезапустити її.</li>`
+        }
+        // else if (os.includes('Mac OS') || os.includes('MacPPC') || os.includes('MacIntel') || os.includes('Mac_PowerPC') || os.includes('Macintosh')) {
+        //     osName = 'Mac OS';
+        // }
+        else if (os.includes('Android')) {
+
+        downloadLink.onclick=()=>{const downloadTab = window.open("https://github.com/Kastet6398/PyLearn/raw/main/Py%20Learn.apk", '_blank');window.focus();setTimeout(downloadTab.close,1000);};
+
+        downloadLink.innerText += " Android";
+        instructions.innerHTML += `<li>Відкрийте файл, що завантажився.</li><li>Якщо буде показано повідомлення, в якому буде сказано щось на кшталт "з міркувань безпеки на вашому телефоні зараз заборонено встановлювати невідомі додатки з цього джерела", то, якщо буде така опція, натисніть на кнопку "Налаштування" і натисніть на Chrome (або на кнопку з назвою вашого браузера).</li><li>Якщо нічого не вдбувається, то спробуйте відкрити файл ще раз, або завантажити програму ще раз.</li><li>Коли </li>`
+
+        } else if (os.includes('Linux') || os.includes('X11')) {
 
 
+        downloadLink.onclick=()=>{window.open("https://dc705.4shared.com/download/N603QWabge/py_learn.html?tsid=20231104-170517-3b02949c&sbsr=25e0eb9959d8dde0f1cceab70883bca7af9&bip=MTg4LjE2My43Mi4xOTE&lgfp=30", "_blank")
+    ;};//const downloadTab = window.open("https://www.mediafire.com/file/ny470brdf34okzx/py_learn.exe", '_blank');setTimeout(window.focus, 0);setTimeout(downloadTab.close,100);};
 
-
-document.addEventListener("DOMContentLoaded", function(event) {
-    const downloadLink = document.querySelector("#download");
-    const instructions = document.querySelector("#instructions");
-    const downloadFrame = document.querySelector("#downloadFrame");
-
-    var os = navigator.userAgent;
-    if (os.includes('Windows')) {
-    downloadLink.onclick=()=>{window.open("https://dc688.4shared.com/download/dSSiCXKnge/py_learn.exe?tsid=20231104-172028-bac9459d&sbsr=2048298230a851828bf33df78b3d49e1af9&bip=MTg4LjE2My43Mi4xOTE&lgfp=30", "_blank")
-;};
-
-    downloadLink.innerText += " Windows";
-    instructions.innerHTML += `<li>Відкрийте файл, що завантажився.</li><li>Запустіть його.</li><li>Якщо у вас встановлений антивірус, то краще почекайте, поки він перевіряє файл. Якщо антивірус закрився, а програма не запускається, спробуйте перезапустити її.</li>`
-    }
-    // else if (os.includes('Mac OS') || os.includes('MacPPC') || os.includes('MacIntel') || os.includes('Mac_PowerPC') || os.includes('Macintosh')) {
-    //     osName = 'Mac OS';
-    // }
-    else if (os.includes('Android')) {
-
-    downloadLink.onclick=()=>{const downloadTab = window.open("https://github.com/Kastet6398/PyLearn/raw/main/Py%20Learn.apk", '_blank');window.focus();setTimeout(downloadTab.close,1000);};
-
-    downloadLink.innerText += " Android";
-    instructions.innerHTML += `<li>Відкрийте файл, що завантажився.</li><li>Якщо буде показано повідомлення, в якому буде сказано щось на кшталт "з міркувань безпеки на вашому телефоні зараз заборонено встановлювати невідомі додатки з цього джерела", то, якщо буде така опція, натисніть на кнопку "Налаштування" і натисніть на Chrome (або на кнопку з назвою вашого браузера).</li><li>Якщо нічого не вдбувається, то спробуйте відкрити файл ще раз, або завантажити програму ще раз.</li><li>Коли </li>`
-
-    } else if (os.includes('Linux') || os.includes('X11')) {
-
-
-    downloadLink.onclick=()=>{window.open("https://dc705.4shared.com/download/N603QWabge/py_learn.html?tsid=20231104-170517-3b02949c&sbsr=25e0eb9959d8dde0f1cceab70883bca7af9&bip=MTg4LjE2My43Mi4xOTE&lgfp=30", "_blank")
-;};//const downloadTab = window.open("https://www.mediafire.com/file/ny470brdf34okzx/py_learn.exe", '_blank');setTimeout(window.focus, 0);setTimeout(downloadTab.close,100);};
-
-    instructions.innerHTML += `<li>Відкрийте файл, що завантажився.</li><li>Якщо буде показано повідомлення, в якому буде сказано щось на кшталт "з міркувань безпеки на вашому телефоні зараз заборонено встановлювати невідомі додатки з цього джерела", то, якщо буде така опція, натисніть на кнопку "Налаштування" і натисніть на Chrome (або на кнопку з назвою вашого браузера).</li><li>Якщо у вас встановлений антивірус, то краще почекайте, поки він перевіряє файл. Якщо антивірус закрився, а програма не запускається, спробуйте перезапустити її.</li>`
-;
- downloadLink.innerText += " Linux";
-    } else if (os.includes('Search Bot') || os.includes('nuhk') || os.includes('Googlebot') || os.includes('Yammybot') || os.includes('Openbot') || os.includes('Slurp') || os.includes('MSNBot') || os.includes('Ask Jeeves/Teoma') || os.includes('ia_archiver')) {
-        osName = 'Search Bot';
-    }
-});
-</script><div id="supported-os"><button id="download"class="btn btn-primary">Завантажити для</button><iframe id="downloadFrame"hidden></iframe><p>Інструкція по встановленню:</p><ol id="instructions"><li>Завантажте програму.</li></ol></div><h2 id="unsupported-os"style="display:none;">Вибачте, але ваша операційна система не підтримується.</h2>
+        instructions.innerHTML += `<li>Відкрийте файл, що завантажився.</li><li>Якщо буде показано повідомлення, в якому буде сказано щось на кшталт "з міркувань безпеки на вашому телефоні зараз заборонено встановлювати невідомі додатки з цього джерела", то, якщо буде така опція, натисніть на кнопку "Налаштування" і натисніть на Chrome (або на кнопку з назвою вашого браузера).</li><li>Якщо у вас встановлений антивірус, то краще почекайте, поки він перевіряє файл. Якщо антивірус закрився, а програма не запускається, спробуйте перезапустити її.</li>`
+    ;
+     downloadLink.innerText += " Linux";
+        } else if (os.includes('Search Bot') || os.includes('nuhk') || os.includes('Googlebot') || os.includes('Yammybot') || os.includes('Openbot') || os.includes('Slurp') || os.includes('MSNBot') || os.includes('Ask Jeeves/Teoma') || os.includes('ia_archiver')) {
+            osName = 'Search Bot';
+        }
+    });
+</script>
+<div id="supported-os">
+    <button id="download" class="btn btn-primary">Завантажити для</button>
+    <iframe id="downloadFrame" hidden></iframe>
+    <p>Інструкція по встановленню:</p>
+    <ol id="instructions">
+        <li>Завантажте програму.</li>
+    </ol>
+</div><h2 id="unsupported-os" style="display:none;">Вибачте, але ваша операційна система не підтримується.</h2>
 {% endblock %}

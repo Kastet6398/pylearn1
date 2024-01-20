@@ -29,10 +29,10 @@ class HomeWorkForm(forms.ModelForm):
         fields = []
 
     attachments = MultipleFileField()
+
     def save(self, commit=True):
-        instance = super(MyForm, self).save(commit=False)
+        instance = super().save(commit=False)
         instance.user = self.user
         if commit:
             instance.save()
         return instance
- 

@@ -1,26 +1,37 @@
-from django.db import models
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
+from django.db import models
 
-from multiupload.fields import MultiFileField
-class Answer(models.Model):
+
+class BaseModel(models.Model):
+    objects = models.Manager()
+
+    class Meta:
+        abstract = True
+
+
+class Answer(BaseModel):
     answer = models.TextField()
 
     def __str__(self):
         return self.answer
 
-class RateLimit(models.Model):
+
+class RateLimit(BaseModel):
     ip_address = models.GenericIPAddressField()
     timestamp = models.DateTimeField(auto_now_add=True)
     connection_number = models.PositiveIntegerField(default=0)
 
-class AdditionalResource(models.Model):
+
+class AdditionalResource(BaseModel):
     url = models.URLField()
     title = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.title
 
-class Question(models.Model):
+
+class Question(BaseModel):
     question = models.TextField()
     answers = models.ManyToManyField(Answer)
     correct = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name="correct")
@@ -28,21 +39,27 @@ class Question(models.Model):
     def __str__(self):
         return self.question
 
-class Test(models.Model):
+
+class Test(BaseModel):
     questions = models.ManyToManyField(Question)
 
     def __str__(self):
         return str(self.id)
 
-class Attachment(models.Model):
-    file = models.FileField(upload_to='uploads/')
 
-class HomeWork(models.Model):
+class Attachment(BaseModel):
+    file = CloudinaryField(
+        resource_type="auto",
+    )
+
+
+class HomeWork(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     theme = models.ForeignKey('Theme', on_delete=models.CASCADE)
     attachments = models.ManyToManyField(Attachment)
 
-class Theme(models.Model):
+
+class Theme(BaseModel):
     name = models.CharField(max_length=255)
     test = models.ForeignKey(Test, on_delete=models.CASCADE, blank=True, null=True)
     video_meeting = models.URLField(blank=True, null=True)
@@ -57,7 +74,8 @@ class Theme(models.Model):
     def __str__(self):
         return self.name
 
-class Course(models.Model):
+
+class Course(BaseModel):
     themes = models.ManyToManyField(Theme)
     name = models.CharField(max_length=255)
     invited_users = models.ManyToManyField(User, blank=True, null=True)

@@ -9,10 +9,13 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import os
+from pathlib import Path
+
 import sentry_sdk
 
 sentry_sdk.init(
-    dsn="https://2d3f7faf995abf4cfaada340f455da5e@o4505680558424064.ingest.sentry.io/4506502298402816",
+    dsn=os.getenv("SENTRY"),
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     traces_sample_rate=1.0,
@@ -21,9 +24,7 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     profiles_sample_rate=1.0,
 )
-import os
-from pathlib import Path
-import cloudinary_storage
+
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 RATE_LIMIT = '10/m'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,20 +33,18 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'bones.equation.solver.noreply@gmail.com'
-EMAIL_HOST_PASSWORD = 'rklbjrcmaiqrddnd'
-
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9_kf_q8_!t%h)igs9is@z!_j8z_&j*2=r(1=ks(8qnd#3$693o'
-
+SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 0
+DEBUG = 1
 
-ALLOWED_HOSTS = ['127.0.0.1','51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 'py-learn.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', '51.20.69.129', 'pylearn.ddns.net', '.vercel.app', 'py-learn.onrender.com']
 
 # Application definition
 
@@ -101,23 +100,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'BonePro.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-RATELIMIT_VIEW='main.views.ratelimit2'
+RATELIMIT_VIEW = 'main.views.ratelimit2'
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'bonepro',
-    'USER': 'Kastet6398',
-    'PASSWORD': 'r0DLS4munNTE',
-    'HOST': 'ep-gentle-bread-25238197.eu-central-1.aws.neon.tech',
-    'PORT': '5432',
-    'OPTIONS': {'sslmode': 'require'},
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bonepro',
+        'USER': 'Kastet6398',
+        'PASSWORD': 'r0DLS4munNTE',
+        'HOST': 'ep-gentle-bread-25238197.eu-central-1.aws.neon.tech',
+        'PORT': '5432',
+        'OPTIONS': {'sslmode': 'require'},
+    }
 }
-USE_ADMIN_INTERFACE=True
+USE_ADMIN_INTERFACE = True
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -135,7 +133,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -155,7 +152,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-#STATIC_ROOT = BASE_DIR / 'static'
+# STATIC_ROOT = BASE_DIR / 'static'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -165,6 +162,7 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dkmvoezsb',
     'API_KEY': '453639488567156',
     'API_SECRET': 'VerqaZWCdO2tioT2EBLb3dn0hrM',
+    'RESOURCE_TYPE': 'auto',
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

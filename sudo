@@ -1,0 +1,2 @@
+ControlPort 9051 /etc/tor/torrc
+forward-socks5t / 127.0.0.1:9050 . /etc/privoxy/config
