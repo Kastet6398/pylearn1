@@ -1,4 +1,4 @@
-django~=5.0.1
+django
 django_country2
 psycopg2-binary
 django-cors-headers
@@ -6,8 +6,8 @@ whitenoise
 gunicorn
 sentry-sdk[django]
 django_cloudinary_storage
-django-multiupload~=0.6.1
+django-multiupload
 djangorestframework
 
-cloudinary~=1.38.0
-requests~=2.31.0
+cloudinary
+requests
