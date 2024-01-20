@@ -25,10 +25,10 @@ def home_work_create_view(request):
         if 'attachments' not in request.FILES or not form.is_valid():
             return redirect('index')
 
-        theme = Theme.objects.get(pk=int(request.POST['theme']))
+        retrieved_theme = Theme.objects.get(pk=int(request.POST['theme']))
         user = request.user
 
-        home_work_instance = HomeWork(theme=theme, user=user)
+        home_work_instance = HomeWork(theme=retrieved_theme, user=user)
         home_work_instance.save()
 
         for file in files:
@@ -66,6 +66,7 @@ def calculator(request):
     return render(request, 'main/calculator.html', {'result': result})
 
 
+# noinspection PyUnusedLocal
 def keep_alive(request):
     return HttpResponse(status=204)
 
@@ -73,21 +74,21 @@ def keep_alive(request):
 def courses(request):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
-    courses = [i for i in Course.objects.all() if not (request.user != i.user and (
+    retrieved_courses = [i for i in Course.objects.all() if not (request.user != i.user and (
             i.choose_who_can_view_the_course and not (
                 i.invited_users.all() and request.user in i.invited_users.all())))]
     context = {
-        'courses': courses
+        'courses': retrieved_courses
     }
     return render(request, "main/courses.html", context)
 
 
 @login_required
-def themes(request, id):
+def themes(request, object_id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     context = {
-        'course': Course.objects.prefetch_related('invited_users', 'user').get(pk=id)
+        'course': Course.objects.prefetch_related('invited_users', 'user').get(pk=object_id)
     }
     if request.user != context['course'].user and (context['course'].choose_who_can_view_the_course and not (
             context['course'].invited_users.all() and request.user in context['course'].invited_users.all())):
@@ -114,50 +115,50 @@ def header(request):
 
 
 @login_required
-def theme(request, id):
+def theme(request, object_id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
 
     homework_form = HomeWorkForm()
-    theme = Theme.objects.get(pk=id)
+    retrieved_theme = Theme.objects.get(pk=object_id)
 
     if request.method == 'POST':
         homework_form = HomeWorkForm(request.POST, request.FILES)
         if homework_form.is_valid():
             user = request.user
 
-            homework = HomeWork(theme=theme, user=user)
+            homework = HomeWork(theme=retrieved_theme, user=user)
             homework.save()
 
             for file in request.FILES.getlist('attachments'):
                 attachment = Attachment.objects.create(file=file)
                 homework.attachments.add(attachment)
 
-            return redirect(f'/theme/{id}')
+            return redirect(f'/theme/{object_id}')
 
     context = {
-        'theme': theme,
+        'theme': retrieved_theme,
         'hw_form': homework_form
     }
     return render(request, 'main/theme.html', context)
 
 
 @login_required
-def test(request, id):
+def test(request, object_id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     context = {
-        'test': Test.objects.get(pk=id)
+        'test': Test.objects.get(pk=object_id)
     }
     return render(request, "main/test.html", context)
 
 
 @login_required
-def control_test(request, id):
+def control_test(request, object_id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     context = {
-        'course': Course.objects.get(pk=id)
+        'course': Course.objects.get(pk=object_id)
     }
     return render(request, "main/control_test.html", context)
 
@@ -178,16 +179,16 @@ def embed(request, resource):
 
 
 @login_required
-def check(request, id):
+def check(request, object_id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     if request.method == 'POST':
         correct_test = {}
         score = 0
         correct_test_questions = []
-        test = Test.objects.get(pk=id)
-        for question in test.questions.all():
-            user_answer = request.POST.get(f"q{question.id}")
+        retrieved_test = Test.objects.get(pk=object_id)
+        for question in retrieved_test.questions.all():
+            user_answer = request.POST.get(f"q{question.object_id}")
             correct_test_question = {'question': question.question, 'answers': question.answers.all(),
                                      'correct': question.correct.answer, 'selected': user_answer}
             correct_test_questions.append(correct_test_question)
@@ -204,17 +205,17 @@ def check(request, id):
 
 
 @login_required
-def check_control(request, id):
+def check_control(request, object_id):
     if request.COUNTRY_CODE == "RU":
         return HttpResponseForbidden("Go away!")
     if request.method == 'POST':
         correct_test = {}
         score = 0
         correct_test_questions = []
-        course = Course.objects.get(pk=id)
-        test = course.control_test
-        for question in test.questions.all():
-            user_answer = request.POST.get(f"q{question.id}")
+        course = Course.objects.get(pk=object_id)
+        retrieved_test = course.control_test
+        for question in retrieved_test.questions.all():
+            user_answer = request.POST.get(f"q{question.object_id}")
             correct_test_question = {'question': question.question, 'answers': question.answers.all(),
                                      'correct': question.correct.answer, 'selected': user_answer}
             correct_test_questions.append(correct_test_question)
