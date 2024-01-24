@@ -6,9 +6,7 @@ whitenoise
 gunicorn
 sentry-sdk[django]
 django_cloudinary_storage
-django-multiupload
 djangorestframework
-
+django_admin_site_search
 cloudinary
 requests
-django-admin-argon-dashboard
