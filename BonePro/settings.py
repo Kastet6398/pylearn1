@@ -11,19 +11,19 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-
-import sentry_sdk
-
-sentry_sdk.init(
-    dsn=os.getenv("SENTRY"),
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    traces_sample_rate=1.0,
-    # Set profiles_sample_rate to 1.0 to profile 100%
-    # of sampled transactions.
-    # We recommend adjusting this value in production.
-    profiles_sample_rate=1.0,
-)
+# import admin_soft.urls
+# import sentry_sdk
+#
+# sentry_sdk.init(
+#     dsn=os.getenv("SENTRY"),
+#     # Set traces_sample_rate to 1.0 to capture 100%
+#     # of transactions for performance monitoring.
+#     traces_sample_rate=1.0,
+#     # Set profiles_sample_rate to 1.0 to profile 100%
+#     # of sampled transactions.
+#     # We recommend adjusting this value in production.
+#     profiles_sample_rate=1.0,
+# )
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 RATE_LIMIT = '10/m'
@@ -49,6 +49,10 @@ ALLOWED_HOSTS = ['127.0.0.1', '51.20.69.129', 'pylearn.ddns.net', '.vercel.app',
 # Application definition
 
 INSTALLED_APPS = [
+    # 'admin_volt.apps.AdminVoltConfig',
+    'admin_site_search',
+    # 'adminlte3',
+    'main',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,9 +60,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
     'cloudinary',
-    'cloudinary_storage'
+    'cloudinary_storage',
 ]
 
 RATELIMIT_USE_CACHE = 'default'
@@ -137,17 +140,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-US'
+# LANGUAGE_CODE = 'en-US'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+# USE_TZ = True
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+# STATIC_ROOT = BASE_DIR / 'static'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 

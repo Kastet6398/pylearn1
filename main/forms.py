@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from multiupload.fields import MultiFileField
+
 from .models import HomeWork
 
 
@@ -30,9 +30,3 @@ class HomeWorkForm(forms.ModelForm):
 
     attachments = MultipleFileField()
 
-    def save(self, commit=True):
-        instance = super().save(commit=False)
-        instance.user = self.user
-        if commit:
-            instance.save()
-        return instance

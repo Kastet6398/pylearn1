@@ -3,8 +3,11 @@ from django.contrib import admin
 from .models import Course, Theme, Test, Question, Answer, AdditionalResource, HomeWork, Attachment
 
 
+# from admin_site_search.views import AdminSiteSearchView
+
+
 class AdditionalResourceAdmin(admin.ModelAdmin):
-    search_fields = ["url"]
+    search_fields = ["title"]
 
 
 class CourseAdmin(admin.ModelAdmin):

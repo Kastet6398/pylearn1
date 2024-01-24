@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "main/base_site.html" %}
 
 {% block title %}
     Login
@@ -14,16 +14,20 @@
             <div class="card-header justify-content-center">
               <h3 class="font-weight-light text-center">Login</h3>
             </div>
-            {% if form.errors %}
+            {% if form.errors or user.is_authenticated %}
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <div id="form_errors">
+
+                        {% if user.is_authenticated %}
+                            <p class="errornote">
+                                You are authenticated as {{ username }}, but are not authorized to
+                                access this page. Would you like to login to a different account?
+                            </p>
+                        {% endif %}
                         {% for key, value in form.errors.items %}
                             <strong>{{ value }}</strong>
                         {% endfor %}
                     </div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
              {% endif %}
             <div class="card-body">
@@ -34,13 +38,15 @@
                   <label for="id_username">Username:</label>
                   <input type="text" name="username" class="form-control" maxlength="150" required="" id="id_username">
                 </div>
-                
+                <br>
                 <div class="form-group">
                   <label for="id_password">Password:</label>
                   <input type="password" name="password" class="form-control" required="" id="id_password">
                 </div>
 
+                <br>
                  <button type="submit" class="btn btn-primary">Login</button>
+                  <br>
                 <a href="{% url 'password_reset' %}" class="forgot-password"><i>Forgot Password?</i></a>
               </form>
             </div>

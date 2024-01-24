@@ -17,41 +17,11 @@ cloudinary.config(
 )
 
 
-def home_work_create_view(request):
-    if request.method == 'POST':
-        form = HomeWorkForm(request.POST)
-        files = request.FILES.getlist('attachments')
-
-        if 'attachments' not in request.FILES or not form.is_valid():
-            return redirect('index')
-
-        retrieved_theme = Theme.objects.get(pk=int(request.POST['theme']))
-        user = request.user
-
-        home_work_instance = HomeWork(theme=retrieved_theme, user=user)
-        home_work_instance.save()
-
-        for file in files:
-            print(file)
-            attachment_instance = Attachment.objects.create(file=file)
-            home_work_instance.attachments.add(attachment_instance)
-
-        home_work_instance.save()
-
-        return redirect(request.path_info)
-    else:
-        form = HomeWorkForm()
-
-    return render(request, 'main/home_work.html', {'form': form})
-
-
 def ggg(request):
     return render(request, 'main/ggg.html', {})
 
 
 def calculator(request):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     result = None
     if request.method == 'POST':
         expression = request.POST.get('expression', '')
@@ -72,8 +42,6 @@ def keep_alive(request):
 
 
 def courses(request):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     retrieved_courses = [i for i in Course.objects.all() if not (request.user != i.user and (
             i.choose_who_can_view_the_course and not (
                 i.invited_users.all() and request.user in i.invited_users.all())))]
@@ -85,8 +53,6 @@ def courses(request):
 
 @login_required
 def themes(request, object_id):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     context = {
         'course': Course.objects.prefetch_related('invited_users', 'user').get(pk=object_id)
     }
@@ -97,56 +63,55 @@ def themes(request, object_id):
 
 
 def admin3(request):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     return render(request, "main/admin2.html", {'slug': ''})
 
 
 def admin2(request, slug):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     return render(request, "main/admin2.html", {'slug': slug})
-
-
-def header(request):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
-    return render(request, "main/header.html", {})
 
 
 @login_required
 def theme(request, object_id):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
 
-    homework_form = HomeWorkForm()
     retrieved_theme = Theme.objects.get(pk=object_id)
 
+    try:
+        homework = HomeWork.objects.get(theme=retrieved_theme, user=request.user)
+        homework_form = None
+    except HomeWork.DoesNotExist:
+        homework_form = HomeWorkForm()
+        homework = None
+
     if request.method == 'POST':
-        homework_form = HomeWorkForm(request.POST, request.FILES)
-        if homework_form.is_valid():
-            user = request.user
+        if request.POST.get('cancel'):
+            try:
+                HomeWork.objects.get(theme=retrieved_theme, user=request.user).delete()
+                return redirect(f'/theme/{object_id}')
+            except HomeWork.DoesNotExist:
+                pass
+        else:
+            homework_form = HomeWorkForm(request.POST, request.FILES)
+            if homework_form.is_valid():
 
-            homework = HomeWork(theme=retrieved_theme, user=user)
-            homework.save()
+                homework = HomeWork(theme=retrieved_theme, user=request.user)
+                homework.save()
 
-            for file in request.FILES.getlist('attachments'):
-                attachment = Attachment.objects.create(file=file)
-                homework.attachments.add(attachment)
+                for file in request.FILES.getlist('attachments'):
+                    attachment = Attachment.objects.create(file=file)
+                    homework.attachments.add(attachment)
 
-            return redirect(f'/theme/{object_id}')
+                return redirect(f'/theme/{object_id}')
 
     context = {
         'theme': retrieved_theme,
-        'hw_form': homework_form
+        'hw_form': homework_form,
+        'hw': homework,
     }
     return render(request, 'main/theme.html', context)
 
 
 @login_required
 def test(request, object_id):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     context = {
         'test': Test.objects.get(pk=object_id)
     }
@@ -155,8 +120,6 @@ def test(request, object_id):
 
 @login_required
 def control_test(request, object_id):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     context = {
         'course': Course.objects.get(pk=object_id)
     }
@@ -164,14 +127,10 @@ def control_test(request, object_id):
 
 
 def download(request):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     return render(request, "main/download.html")
 
 
 def embed(request, resource):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     context = {
         'resource': resource
     }
@@ -180,8 +139,6 @@ def embed(request, resource):
 
 @login_required
 def check(request, object_id):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     if request.method == 'POST':
         correct_test = {}
         score = 0
@@ -206,8 +163,6 @@ def check(request, object_id):
 
 @login_required
 def check_control(request, object_id):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     if request.method == 'POST':
         correct_test = {}
         score = 0
@@ -233,6 +188,4 @@ def check_control(request, object_id):
 
 
 def update(request):
-    if request.COUNTRY_CODE == "RU":
-        return HttpResponseForbidden("Go away!")
     return JsonResponse({"latest": 20})

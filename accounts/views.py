@@ -1,14 +1,13 @@
-from django.views.generic.edit import CreateView
 from django.contrib.auth import logout, login
-from django.shortcuts import redirect
-from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-
-from .forms import LoginUserForm, RegisterUserForm
-from django.urls import reverse_lazy
-from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+
+from .forms import LoginUserForm, RegisterUserForm
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):

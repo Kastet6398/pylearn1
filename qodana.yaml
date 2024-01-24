@@ -31,3 +31,5 @@ exclude:
   - name: All
     paths:
       - admin/
+      - main/migrations
+      - accounts/migrations

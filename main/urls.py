@@ -16,24 +16,22 @@ Including another URLconf
 from django.urls import path, re_path
 
 from .views import admin3, courses, themes, test, check, update, download, admin2, control_test, check_control, \
-    header, calculator, keep_alive, theme, embed, home_work_create_view
+    calculator, keep_alive, theme, embed
 
 urlpatterns = [
     re_path(r'^/*$', courses, name='index'),
     path('themes/', courses),
     path('keep-alive/', keep_alive),
-    path('themes/<int:id>/', themes),
+    path('themes/<int:object_id>/', themes),
     path('calculator/', calculator),
-    path('test/<int:id>/', test),
-    path('control-test/<int:id>/', control_test),
-    path('check/<int:id>/', check),
-    path('check-control/<int:id>/', check_control),
+    path('test/<int:object_id>/', test),
+    path('control-test/<int:object_id>/', control_test),
+    path('check/<int:object_id>/', check),
+    path('check-control/<int:object_id>/', check_control),
     path('update/', update),
     re_path(r'^admin2/(?P<slug>.*)/$', admin2),
     path('admin2/', admin3),
     path('download/', download),
-    path('header/', header),
-    path('theme/<int:id>/', theme),
-    path('create/', home_work_create_view),
+    path('theme/<int:object_id>/', theme),
     re_path(r'^embed/(?P<resource>.+)/*$', embed)
 ]

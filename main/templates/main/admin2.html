@@ -1,14 +1,22 @@
-{% extends "main/base.html" %}{% block title %}Administration{% endblock %}{% block content %} <iframe id="view" style="width: 100%; height: 90vh; border: none;"></iframe>
+{% extends "main/base_site.html" %}{% block title %}Administration{% endblock %}{% block content %}
+<iframe id="view" style="width: 100%; height: 90vh; border: none;"></iframe>
 <script>
   document.getElementById('view').src = location.href.replace(location.origin + "/admin2/", "/admin/");
   document.getElementById('view').addEventListener('load', function() {
     var iframeWindow = this.contentWindow;
     iframeWindow.document.querySelectorAll('a').forEach(function(link) {
       link.addEventListener('click', function(event) {
-        if  (!link.href.includes("_popup=1")) {
-            event.preventDefault();
-            window.location.href = link.href.replace('/admin/', '/admin2/');
-	}
+        if (!link.href.includes("_popup=1")) {
+          event.preventDefault();
+          var newHref = link.href.replace('/admin/', '/admin2/');
+          window.location.href = newHref;
+          // Extracting the query parameters from the original URL
+          var originalQueryParams = link.search;
+          // Appending the extracted query parameters to the newHref
+          newHref += originalQueryParams;
+          // You can also load details from the /admin2/... page here if needed
+          // For example, make an AJAX request to fetch additional data based on the newHref
+        }
       });
     });
   });

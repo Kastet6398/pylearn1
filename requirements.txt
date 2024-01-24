@@ -11,3 +11,4 @@ djangorestframework
 
 cloudinary
 requests
+django-admin-argon-dashboard

@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 from django.conf import settings
 from django.db import transaction
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponse
 
 from .models import RateLimit
 
@@ -13,7 +13,7 @@ class CountryMiddleware:
 
     def __call__(self, request):
         if request.COUNTRY_CODE == "RU":
-            return HttpResponseForbidden("We don't accept requests from Russia.")
+            return HttpResponseForbidden()
 
         response = self.get_response(request)
         return response
@@ -33,7 +33,7 @@ class RateLimitMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        is_static_request = request.path.startswith(settings.STATIC_URL)
+        is_static_request = 'static' in request.path
         if not is_static_request and request.path.endswith('/'):
             ip_address = get_client_ip(request)
             allowed_requests = 40
@@ -41,7 +41,7 @@ class RateLimitMiddleware:
 
             with transaction.atomic():
                 rate_limit, created = RateLimit.objects.select_for_update().get_or_create(ip_address=ip_address)
-                current_time = datetime.utcnow().replace(tzinfo=timezone.utc)
+                current_time = datetime.now()
 
                 if (current_time - rate_limit.timestamp).total_seconds() >= time_window:
                     rate_limit.connection_number = 0
@@ -49,7 +49,7 @@ class RateLimitMiddleware:
                     rate_limit.save()
 
                 if rate_limit.connection_number >= allowed_requests:
-                    return HttpResponseForbidden('Too many requests. Please try again later.')
+                    return HttpResponse(status=429)
 
                 rate_limit.connection_number += 1
                 rate_limit.save()
