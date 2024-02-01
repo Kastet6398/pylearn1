@@ -16,6 +16,7 @@ class BaseModel(models.Model):
 
 class Answer(BaseModel):
     answer = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.answer
@@ -28,6 +29,7 @@ class RateLimit(BaseModel):
 
 
 class AdditionalResource(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     url = models.URLField()
     title = models.CharField(max_length=1000)
 
@@ -36,6 +38,7 @@ class AdditionalResource(BaseModel):
 
 
 class Question(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.TextField()
     answers = models.ManyToManyField(Answer)
     correct = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name="correct")
@@ -45,10 +48,12 @@ class Question(BaseModel):
 
 
 class Test(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     questions = models.ManyToManyField(Question)
 
 
 class Attachment(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     file = CloudinaryField(
         resource_type="auto",
     )
@@ -60,6 +65,7 @@ class HomeWork(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     theme = models.ForeignKey('Theme', on_delete=models.CASCADE)
     attachments = models.ManyToManyField(Attachment)
+    is_submitted = models.BooleanField(blank=True, default=True)
 
 
 class Theme(BaseModel):
@@ -70,6 +76,7 @@ class Theme(BaseModel):
     description = models.TextField(blank=True, null=True)
     additional_resources = models.ManyToManyField(AdditionalResource)
     has_homework = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['position_in_themes_list']

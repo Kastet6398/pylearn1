@@ -8,10 +8,32 @@ from .models import Course, Theme, Test, Question, Answer, AdditionalResource, H
 
 class AdditionalResourceAdmin(admin.ModelAdmin):
     search_fields = ["title"]
+    exclude = ["user"]
+
+    def get_model_perms(self, request):
+        return {}
+
+    def has_change_permission(self, request, obj=None):
+        return not (obj is not None and obj.user != request.user)
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
 
 
 class CourseAdmin(admin.ModelAdmin):
     list_per_page = 15
+    exclude = ["user"]
+    search_fields = ["name"]
+
+    def has_change_permission(self, request, obj=None):
+        return not (obj is not None and obj.user != request.user)
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
 
     fieldsets = (
         ('Main', {
@@ -32,8 +54,16 @@ class CourseAdmin(admin.ModelAdmin):
 
 class HomeWorkAdmin(admin.ModelAdmin):
     list_per_page = 15
+    exclude = ["user"]
+    search_fields = ["id"]
 
     fields = ['attachments', 'theme']
+
+    def has_change_permission(self, request, obj=None):
+        return not (obj is not None and obj.user != request.user)
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
@@ -43,22 +73,91 @@ class HomeWorkAdmin(admin.ModelAdmin):
 class ThemeAdmin(admin.ModelAdmin):
     autocomplete_fields = ['additional_resources']
     list_per_page = 15
+    exclude = ["user"]
+    search_fields = ["name"]
+
+    def has_change_permission(self, request, obj=None):
+        return not (obj is not None and obj.user != request.user)
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
 
 
 class QuestionAdmin(admin.ModelAdmin):
     list_per_page = 15
+    exclude = ["user"]
+    search_fields = ["question"]
+
+    def get_model_perms(self, request):
+        return {}
+
+    def has_change_permission(self, request, obj=None):
+        return not (obj is not None and obj.user != request.user)
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
 
 
 class AnswerAdmin(admin.ModelAdmin):
     list_per_page = 15
+    exclude = ["user"]
+    search_fields = ["answer"]
+
+    def get_model_perms(self, request):
+        return {}
+
+    def has_change_permission(self, request, obj=None):
+        return not (obj is not None and obj.user != request.user)
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
 
 
 class TestAdmin(admin.ModelAdmin):
     list_per_page = 15
+    exclude = ["user"]
+    search_fields = ["id"]
+
+    def has_change_permission(self, request, obj=None):
+        return not (obj is not None and obj.user != request.user)
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
 
 
 class AttachmentAdmin(admin.ModelAdmin):
     list_per_page = 15
+    exclude = ["user"]
+    search_fields = ["id"]
+
+    def get_model_perms(self, request):
+        return {}
+
+    def has_change_permission(self, request, obj=None):
+        return not (obj is not None and obj.user != request.user)
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
 
 
 #    autocomplete_fields = ['questions']

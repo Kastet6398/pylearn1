@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 
-from .models import HomeWork
+from .models import HomeWork, Course
 
 
 class MultipleFileInput(forms.ClearableFileInput):

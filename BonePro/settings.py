@@ -50,7 +50,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '51.20.69.129', 'pylearn.ddns.net', '.vercel.app',
 
 INSTALLED_APPS = [
     # 'admin_volt.apps.AdminVoltConfig',
-    'admin_site_search',
+    # 'admin_site_search',
     # 'adminlte3',
     'main',
     'corsheaders',

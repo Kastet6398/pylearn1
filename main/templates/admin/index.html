@@ -7,13 +7,26 @@
 
 {% block bodyclass %}{{ block.super }} dashboard{% endblock %}
 
-{% block breadcrumbs %}{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+›
+<a href="{% url 'admin:index' %}">{% translate 'Index' %}</a>
 
-{% block nav-sidebar %}{% endblock %}
+</div>{% endblock %}
+
 
 {% block content %}
 <div id="content-main">
-  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+    <h2 class="quiet">Welcome to our administration!</h2>
+    <br>
+    <p>Here's a brief demo video:</p>
+     <iframe width="420" height="315"
+src="https://www.youtube.com/embed/oEg706rzCRw">
+</iframe>
+    <br>
+    <br>
+    <br>
 </div>
 {% endblock %}
 

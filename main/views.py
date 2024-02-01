@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from .forms import HomeWorkForm
 from .models import Course, Theme, Test, Attachment, HomeWork
@@ -78,6 +80,8 @@ def theme(request, object_id):
     try:
         homework = HomeWork.objects.get(theme=retrieved_theme, user=request.user)
         homework_form = None
+        if not homework.is_submitted:
+            homework_form = HomeWorkForm()
     except HomeWork.DoesNotExist:
         homework_form = HomeWorkForm()
         homework = None
@@ -85,19 +89,27 @@ def theme(request, object_id):
     if request.method == 'POST':
         if request.POST.get('cancel'):
             try:
-                HomeWork.objects.get(theme=retrieved_theme, user=request.user).delete()
+                inst = HomeWork.objects.get(theme=retrieved_theme, user=request.user)
+                inst.is_submitted = False
+                inst.save()
                 return redirect(f'/theme/{object_id}')
             except HomeWork.DoesNotExist:
                 pass
         else:
             homework_form = HomeWorkForm(request.POST, request.FILES)
             if homework_form.is_valid():
-
-                homework = HomeWork(theme=retrieved_theme, user=request.user)
-                homework.save()
+                if not homework:
+                    homework = HomeWork(theme=retrieved_theme, user=request.user)
+                    homework.save()
+                else:
+                    homework.attachments.clear()
 
                 for file in request.FILES.getlist('attachments'):
-                    attachment = Attachment.objects.create(file=file)
+                    attachment = Attachment.objects.create(file=file, user=request.user)
+                    homework.attachments.add(attachment)
+
+                for file in request.POST.getlist('attachments'):
+                    attachment = Attachment.objects.create(file=file, user=request.user)
                     homework.attachments.add(attachment)
 
                 return redirect(f'/theme/{object_id}')

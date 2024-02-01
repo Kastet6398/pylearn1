@@ -16,7 +16,7 @@
     border-right: 1px solid var(--hairline-color);
     background-color: var(--body-bg);
     cursor: pointer;
-    font-size: 1.25rem;
+    font-size: 20px;
     color: var(--link-fg);
     padding: 0;
 }
@@ -59,13 +59,8 @@
     content: '\00AB';
 }
 
-.main > #nav-sidebar {
-    visibility: hidden;
-}
-
 .main.shifted > #nav-sidebar {
     margin-left: 0;
-    visibility: visible;
 }
 
 [dir="rtl"] .main.shifted > #nav-sidebar {
@@ -111,7 +106,13 @@
 }
 
 @media (max-width: 767px) {
-    #nav-sidebar, #toggle-nav-sidebar {
+    #nav-sidebar {
+        float: left;
+        min-width: 100%;
+        width: 100%;
+        margin: 0;
+    }
+    #toggle-nav-sidebar {
         display: none;
     }
 
