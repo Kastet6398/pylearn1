@@ -157,7 +157,7 @@ def check(request, object_id):
         correct_test_questions = []
         retrieved_test = Test.objects.get(pk=object_id)
         for question in retrieved_test.questions.all():
-            user_answer = request.POST.get(f"q{question.object_id}")
+            user_answer = request.POST.get(f"q{question.id}")
             correct_test_question = {'question': question.question, 'answers': question.answers.all(),
                                      'correct': question.correct.answer, 'selected': user_answer}
             correct_test_questions.append(correct_test_question)
@@ -182,7 +182,7 @@ def check_control(request, object_id):
         course = Course.objects.get(pk=object_id)
         retrieved_test = course.control_test
         for question in retrieved_test.questions.all():
-            user_answer = request.POST.get(f"q{question.object_id}")
+            user_answer = request.POST.get(f"q{question.id}")
             correct_test_question = {'question': question.question, 'answers': question.answers.all(),
                                      'correct': question.correct.answer, 'selected': user_answer}
             correct_test_questions.append(correct_test_question)
