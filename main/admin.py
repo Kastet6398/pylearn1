@@ -14,7 +14,7 @@ class AdditionalResourceAdmin(admin.ModelAdmin):
         return {}
 
     def has_change_permission(self, request, obj=None):
-        return not (obj is not None and obj.user != request.user)
+        return not (request.user.is_superuser and obj is not None and obj.user != request.user)
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
@@ -30,7 +30,7 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
     def has_change_permission(self, request, obj=None):
-        return not (obj is not None and obj.user != request.user)
+        return not (request.user.is_superuser and obj is not None and obj.user != request.user)
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
@@ -60,7 +60,7 @@ class HomeWorkAdmin(admin.ModelAdmin):
     fields = ['attachments', 'theme']
 
     def has_change_permission(self, request, obj=None):
-        return not (obj is not None and obj.user != request.user)
+        return not (request.user.is_superuser and obj is not None and obj.user != request.user)
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
@@ -77,7 +77,7 @@ class ThemeAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
     def has_change_permission(self, request, obj=None):
-        return not (obj is not None and obj.user != request.user)
+        return not (request.user.is_superuser and obj is not None and obj.user != request.user)
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
@@ -96,7 +96,7 @@ class QuestionAdmin(admin.ModelAdmin):
         return {}
 
     def has_change_permission(self, request, obj=None):
-        return not (obj is not None and obj.user != request.user)
+        return not (request.user.is_superuser and obj is not None and obj.user != request.user)
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
@@ -115,7 +115,7 @@ class AnswerAdmin(admin.ModelAdmin):
         return {}
 
     def has_change_permission(self, request, obj=None):
-        return not (obj is not None and obj.user != request.user)
+        return not (request.user.is_superuser and obj is not None and obj.user != request.user)
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
@@ -131,7 +131,7 @@ class TestAdmin(admin.ModelAdmin):
     search_fields = ["id"]
 
     def has_change_permission(self, request, obj=None):
-        return not (obj is not None and obj.user != request.user)
+        return not (request.user.is_superuser and obj is not None and obj.user != request.user)
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
@@ -150,7 +150,7 @@ class AttachmentAdmin(admin.ModelAdmin):
         return {}
 
     def has_change_permission(self, request, obj=None):
-        return not (obj is not None and obj.user != request.user)
+        return not (request.user.is_superuser and obj is not None and obj.user != request.user)
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
