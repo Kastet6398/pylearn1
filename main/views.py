@@ -104,6 +104,8 @@ def theme(request, object_id):
                 else:
                     homework.attachments.clear()
 
+                homework.is_submitted = True
+                homework.save()
                 for file in request.FILES.getlist('attachments'):
                     attachment = Attachment.objects.create(file=file, user=request.user)
                     homework.attachments.add(attachment)
@@ -118,6 +120,7 @@ def theme(request, object_id):
         'theme': retrieved_theme,
         'hw_form': homework_form,
         'hw': homework,
+        'submitted': homework_form and (homework and not homework.is_submitted)
     }
     return render(request, 'main/theme.html', context)
 

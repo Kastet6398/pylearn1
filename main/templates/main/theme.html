@@ -18,7 +18,7 @@
     {% endfor %}
     {% if theme.has_homework %}
     <h2>Attach your homework</h2>
-    {% if hw_form %}
+    {% if submitted %}
     <form id="homeworkForm" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
