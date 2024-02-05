@@ -1,4 +1,4 @@
-django==4.1.10
+django==4.1.13
 django_country2
 psycopg2-binary
 django-cors-headers
