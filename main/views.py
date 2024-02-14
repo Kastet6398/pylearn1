@@ -1,5 +1,7 @@
+import os.path
 import subprocess
 import traceback
+from pathlib import Path
 
 import cloudinary
 from django.contrib.auth.decorators import login_required
@@ -28,8 +30,8 @@ def calculator(request):
     if request.method == 'POST':
         expression = request.POST.get('expression', '')
         try:
-            jar_path = 'temp-1.0-SNAPSHOT'
-            result_bytes = subprocess.check_output([jar_path, expression])
+            jar_path = './temp-1.0-SNAPSHOT'
+            result_bytes = subprocess.check_output([str(jar_path), expression])
             result = result_bytes.decode('utf-8').strip()
         except (Exception,):
             traceback.print_exc()
