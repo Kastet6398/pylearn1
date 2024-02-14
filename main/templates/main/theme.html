@@ -32,12 +32,23 @@
     </form>
     {% else %}
     <br>
-    <h4>Currently:</h4>
-            {% if hw %}
-                {% for i in hw.attachments.all %}
-                    <a href="{{ i.file.url }}">{{ i.file.url }}</a><br>
-                {% endfor %}
-            {% endif %}
+<h4>Currently:</h4>
+{% if hw %}
+    <div class="row">
+        {% for i in hw.attachments.all %}
+  <div class="col-sm-3" style="height: 10% !important;">
+    <div class="card">
+                <a href="{{ i.file.url }}" target="_blank">
+                    <img src="{{ i.file.url }}" class="card-img-top" alt="cannot preview the image">
+      <div class="card-body">
+          <p class="card-text">{{ i.file.url }}</p>
+            </div>
+                </a>
+    </div></div>
+        {% endfor %}
+        </div>
+{% endif %}
+
     <br>
     <form method="post">{% csrf_token %}
         <button type="submit">Cancel submission</button>

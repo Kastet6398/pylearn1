@@ -49,7 +49,7 @@ class CourseAdmin(admin.ModelAdmin):
     )
 
     class Media:
-        js = ("admin/js/toggleInvitedUsersField.js",)
+        js = ("admin/js/toggleInvitedUsersField.js.js",)
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
