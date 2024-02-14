@@ -28,7 +28,7 @@ def calculator(request):
     if request.method == 'POST':
         expression = request.POST.get('expression', '')
         try:
-            jar_path = '/var/task/temp-1.0-SNAPSHOT'
+            jar_path = 'temp-1.0-SNAPSHOT'
             result_bytes = subprocess.check_output([jar_path, expression])
             result = result_bytes.decode('utf-8').strip()
         except (Exception,):
