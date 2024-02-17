@@ -18,13 +18,13 @@ from django.urls import path, include
 
 import accounts.urls
 import accounts.views
-import main.urls
+import main.views
 from django.contrib import admin
 
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', include(main.urls)),
-    path('', main.urls.redirect_to_render),
+    path('', main.views.redirect_to_render),
     # path('accounts/', include(accounts.urls)),
 ]
