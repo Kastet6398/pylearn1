@@ -25,6 +25,6 @@ from django.contrib import admin
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', include(main.urls)),
-    path('', main.redirectToRender),
+    path('', main.urls.redirectToRender),
     # path('accounts/', include(accounts.urls)),
 ]
