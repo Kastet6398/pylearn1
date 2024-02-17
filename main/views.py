@@ -25,6 +25,9 @@ def ggg(request):
     return render(request, 'main/ggg.html', {})
 
 
+def redirect_to_render(request):
+    return render(request, 'main/redirect_to_render.html', {})
+
 def calculator(request):
     result = None
     if request.method == 'POST':
